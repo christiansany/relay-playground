@@ -1,10 +1,10 @@
 import { RelayEnvironmentProvider } from "react-relay";
 import { initRelayEnvironment } from "../RelayEnvironment";
 import { useMemo } from "react";
-import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import { Inter } from "next/font/google";
 import Head from "next/head";
+import "@/styles/globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 

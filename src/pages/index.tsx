@@ -1,4 +1,3 @@
-import Head from "next/head";
 import { graphql, useLazyLoadQuery, usePreloadedQuery } from "react-relay";
 import { pagesQuery } from "../../__generated__/pagesQuery.graphql";
 import Link from "next/link";
