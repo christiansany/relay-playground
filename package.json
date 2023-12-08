@@ -4,21 +4,27 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "relay-compiler --validate && next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "relay": "relay-compiler --watch"
   },
   "dependencies": {
+    "next": "14.0.4",
     "react": "^18",
     "react-dom": "^18",
-    "next": "14.0.4"
+    "react-relay": "^16.0.0",
+    "relay-runtime": "^16.0.0"
   },
   "devDependencies": {
-    "typescript": "^5",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@types/react-relay": "^16.0.5",
+    "@types/relay-runtime": "^14.1.19",
     "eslint": "^8",
-    "eslint-config-next": "14.0.4"
+    "eslint-config-next": "14.0.4",
+    "relay-compiler": "^16.0.0",
+    "typescript": "^5"
   }
 }

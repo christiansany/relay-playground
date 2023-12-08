@@ -1,0 +1,359 @@
+interface DisplayableError {
+  field: [String!]
+  message: String!
+}
+
+type UserError implements DisplayableError {
+  field: [String!]
+  message: String!
+}
+
+interface Contribution {
+  creator: User!
+}
+
+interface Timestamps {
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type Query {
+  node(id: ID!): Node
+  nodes(ids: [ID!]!): [Node!]!
+  productRating(id: ID!): ProductRating
+  productRatings(
+    first: Int
+    last: Int
+    before: String
+    after: String
+    query: String
+  ): ProductRatingConnection!
+  productRatingComment(id: ID!): ProductRatingComment
+  productRatingComments(
+    first: Int
+    last: Int
+    before: String
+    after: String
+  ): ProductRatingCommentConnection!
+  product(id: ID!): Product
+  products(
+    first: Int
+    last: Int
+    before: String
+    after: String
+    query: String
+    sortKey: ProductSortKey! = ID
+    reverse: Boolean! = false
+  ): ProductConnection!
+  me: User
+  user(id: ID!): User
+  users(
+    first: Int
+    last: Int
+    before: String
+    after: String
+    query: String
+    sortKey: UserSortKey! = ID
+    reverse: Boolean! = false
+  ): UserConnection!
+}
+
+"""
+An object with an ID field to support global identification, in accordance with the [Relay
+specification](https://relay.dev/graphql/objectidentification.htm#sec-Node-Interface).
+"""
+interface Node {
+  """
+  A globally-unique identifier.
+  """
+  id: ID!
+}
+
+"""
+Returns information about pagination in a connection, in accordance with the
+[Relay specification](https://relay.dev/graphql/connections.htm#sec-undefined.PageInfo).
+"""
+type PageInfo {
+  """
+  Whether there are any pages prior to the current page.
+  """
+  hasPreviousPage: Boolean!
+
+  """
+  Whether there are more pages to fetch following the current page.
+  """
+  hasNextPage: Boolean!
+
+  """
+  The cursor corresponding to the first node in edges.
+  """
+  startCursor: String
+
+  """
+  The cursor corresponding to the last node in edges.
+  """
+  endCursor: String
+}
+
+"""
+A generic interface which holds one Edge and a cursor during pagination.
+"""
+interface Edge {
+  """
+  A cursor for use in pagination.
+  """
+  cursor: String!
+
+  """
+  The item implementing the node interface.
+  """
+  node: Node!
+}
+
+"""
+Returns a Connection, in accordance with
+[Relay specification](https://relay.dev/graphql/connections.htm#sec-Connection-Types).
+"""
+interface Connection {
+  """
+  A list of edges.
+  """
+  edges: [Edge!]!
+
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+}
+
+"""
+Date custom scalar type
+"""
+scalar Date
+
+"""
+DateTime custom scalar type
+"""
+scalar DateTime
+
+"""
+HTML custom scalar type
+"""
+scalar HTML
+
+interface Votable {
+  votesSummary: VotesSummary!
+  userVote: Vote
+}
+
+type VotesSummary {
+  """
+  Score is determined as UpVote - DownVote
+  """
+  score: Int!
+
+  """
+  All cumulative UpVotes
+  """
+  countUp: Int!
+
+  """
+  All cumulative DownVotes
+  """
+  countDown: Int!
+
+  """
+  All cumulative AbusiveVotes
+  """
+  countAbusive: Int!
+}
+
+type Vote implements Timestamps {
+  id: ID!
+  user: User!
+  type: VoteType!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+enum VoteType {
+  UpVote
+  DownVote
+  AbusiveVote
+}
+
+type ProductRating implements Node & Timestamps & Votable & Contribution {
+  id: ID!
+  title: String
+  text: String
+  ratingScore: Int!
+  creatorIsVerifiedBuyer: Boolean!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  pros: [String!]
+  cons: [String!]
+  votesSummary: VotesSummary!
+  userVote: Vote
+  product: Product!
+  creator: User!
+  comments(
+    first: Int
+    last: Int
+    before: String
+    after: String
+  ): ProductRatingCommentConnection!
+}
+
+type ProductRatingEdge implements Edge {
+  cursor: String!
+  node: ProductRating!
+}
+
+type ProductRatingConnection implements Connection {
+  edges: [ProductRatingEdge!]!
+  pageInfo: PageInfo!
+}
+
+type ProductRatingsSummary {
+  averageRating: Float!
+  totalRatings: Int!
+}
+
+type User implements Node {
+  productRatings(
+    first: Int
+    last: Int
+    before: String
+    after: String
+  ): ProductRatingConnection!
+  productRatingComments(
+    first: Int
+    last: Int
+    before: String
+    after: String
+  ): ProductRatingCommentConnection!
+  id: ID!
+  username: String!
+  email: String!
+  height: Int!
+}
+
+type Product implements Node {
+  productRatingsSummary: ProductRatingsSummary!
+  productRatings(
+    first: Int
+    last: Int
+    before: String
+    after: String
+  ): ProductRatingConnection!
+  id: ID!
+  name: String!
+  description: String!
+  price: Float!
+}
+
+type ProductRatingComment implements Node & Timestamps & Votable & Contribution {
+  id: ID!
+  text: String!
+  rating: ProductRating!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  votesSummary: VotesSummary!
+  userVote: Vote
+  creator: User!
+}
+
+type ProductRatingCommentEdge implements Edge {
+  cursor: String!
+  node: ProductRatingComment!
+}
+
+type ProductRatingCommentConnection implements Connection {
+  edges: [ProductRatingCommentEdge!]!
+  pageInfo: PageInfo!
+}
+
+type ProductEdge implements Edge {
+  cursor: String!
+  node: Product!
+}
+
+type ProductConnection implements Connection {
+  edges: [ProductEdge!]!
+  pageInfo: PageInfo!
+}
+
+type Mutation {
+  productCreate(input: ProductCreateInput!): ProductCreatePayload
+  productUpdate(input: ProductUpdateInput!): ProductUpdatePayload
+  userCreate(input: UserCreateInput!): UserCreatePayload
+  userUpdate(input: UserUpdateInput!): UserUpdatePayload
+}
+
+input ProductCreateInput {
+  name: String!
+  description: String!
+  price: Int!
+}
+
+type ProductCreatePayload {
+  userErrors: [UserError!]!
+  product: Product
+}
+
+input ProductUpdateInput {
+  id: ID!
+  name: String
+  description: String
+  price: Int
+}
+
+type ProductUpdatePayload {
+  userErrors: [UserError!]!
+  product: Product
+}
+
+enum ProductSortKey {
+  ID
+  PRICE
+}
+
+type UserEdge implements Edge {
+  cursor: String!
+  node: User!
+}
+
+type UserConnection implements Connection {
+  edges: [UserEdge!]!
+  pageInfo: PageInfo!
+}
+
+input UserCreateInput {
+  username: String!
+  email: String!
+  height: Int!
+}
+
+type UserCreatePayload {
+  user: User
+  userErrors: [UserError!]!
+}
+
+input UserUpdateInput {
+  id: ID!
+  username: String
+  email: String
+  height: Int
+}
+
+type UserUpdatePayload {
+  user: User
+  userErrors: [UserError!]!
+}
+
+enum UserSortKey {
+  ID
+  USERNAME
+  EMAIL
+  HEIGHT
+}
