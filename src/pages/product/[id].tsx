@@ -54,7 +54,7 @@ export default function ProductPage({
   );
 }
 
-ProductPage.getInitialProps = async (ctx: NextPageContext) => {
+ProductPage.getInitialProps = (ctx: NextPageContext) => {
   if (typeof window === "undefined") {
     return {};
   }
