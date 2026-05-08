@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<e64756eb8ad6ffcf23a7ac5e14f0784e>>
+ * @generated SignedSource<<3d9feb8010721a01348b47f7f4527843>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -211,12 +211,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "d7b7426cce38b8a621e99466094ebd64",
+    "cacheID": "0559ca68e7705326822081eb72d5d5da",
     "id": null,
     "metadata": {},
     "name": "SlugProductTypeQuery",
     "operationKind": "query",
-    "text": "query SlugProductTypeQuery(\n  $slug: String!\n) {\n  productTypeBySlug(slug: $slug) {\n    id\n    name\n    ...ProductTypePageBody_productType\n  }\n}\n\nfragment ProductTypePageBody_productType on ProductType {\n  products(first: 20) {\n    edges {\n      node {\n        id\n        name\n        description\n        price\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n"
+    "text": "query SlugProductTypeQuery(\n  $slug: String!\n) {\n  productTypeBySlug(slug: $slug) {\n    id\n    name\n    ...ProductTypePageBody_productType\n  }\n}\n\nfragment ProductTypePageBody_productType on ProductType {\n  products(first: 20) {\n    edges {\n      node {\n        id\n        name\n        description\n        price @simulateError\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n"
   }
 };
 })();

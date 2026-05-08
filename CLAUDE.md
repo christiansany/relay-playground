@@ -71,19 +71,42 @@ Run `yarn fmt` after every set of edits — before declaring a task done, before
 
 ## `@simulateError` directive
 
-Declared in `server/schema.graphql` as `directive @simulateError on FIELD_DEFINITION`. A schema field tagged with `@simulateError` resolves by always throwing a `GraphQLError("Simulated error via @simulateError directive")`. The error lands in `errors[]` at the field's path; the field nulls in place (bubbling up only as far as the next non-`@semanticNonNull` boundary).
+Declared as `directive @simulateError on FIELD | FIELD_DEFINITION`. Implemented entirely server-side in `server/src/directives/simulateError.ts` (a `mapSchema` transformer applied in `server/src/schema.ts`). Both forms emit the same `GraphQLError`, recorded against the field's path in `errors[]`.
 
-Implemented via a `mapSchema` transformer in `server/src/directives/simulateError.ts`, applied to the executable schema in `server/src/schema.ts`.
+### On a query/fragment selection (FIELD) — most common
+
+Tag a single read inline in any operation. The wrapped resolver inspects `info.fieldNodes[*].directives` at execution time and throws when it finds `@simulateError`. Use this to test one specific render path without touching the schema:
+
+```graphql
+fragment ProductTypePageBody_productType on ProductType @throwOnFieldError {
+  products(first: $first, after: $after) @connection(...) {
+    edges {
+      node {
+        id
+        name
+        price @simulateError  # this single field errors per row
+      }
+    }
+  }
+}
+```
+
+For lists, the directive errors on each array element with the index in the path: `["...", "edges", 0, "node", "price"]`, `["...", "edges", 1, ...]`.
+
+### On a schema field (FIELD_DEFINITION)
+
+Tag the schema definition so every read of that field errors, regardless of who selected it:
 
 ```graphql
 type Sector implements Node {
   id: ID!
-  name: String @semanticNonNull @simulateError  # always errors when read
-  ...
+  name: String @semanticNonNull @simulateError # always errors when read
 }
 ```
 
-Pair with `@semanticNonNull` (which is already on every nullable-but-required field in this repo) so the error stops at the field instead of nulling the whole parent.
+### Pair with `@semanticNonNull` + `@throwOnFieldError`
+
+`@semanticNonNull` (already on every nullable-but-required field in this repo) tells the client to keep the field as null with the error in `errors[]` instead of bubbling. `@throwOnFieldError` (on every operation/fragment in this repo) makes Relay throw at the read site so the `<ErrorBoundary>` catches it.
 
 ## `@semanticNonNull` directive
 
@@ -118,4 +141,4 @@ query Foo @throwOnFieldError {
 }
 ```
 
-`@throwOnFieldError` is stripped from the network text by the relay-compiler (it's a client-runtime directive); only `@simulateError` actually goes over the wire. When the error (whether server-thrown via `@simulateError on FIELD_DEFINITION` or client-injected via `@simulateError on FIELD`) lands in the response's `errors` array, Relay throws on read at the hook, the boundary catches it, and remounting (e.g. navigating to another route and back) re-fetches.
+`@throwOnFieldError` is stripped from the network text by the relay-compiler (it's a client-runtime directive); only `@simulateError` actually goes over the wire. When the server-emitted error (from either directive flavor) lands in the response's `errors` array, Relay throws on read at the hook, the boundary catches it, and remounting (e.g. navigating to another route and back) re-fetches.

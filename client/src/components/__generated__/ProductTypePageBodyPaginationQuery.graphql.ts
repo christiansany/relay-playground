@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<0fd4af4bf1df881d7f7527bb89431cc9>>
+ * @generated SignedSource<<a140a61788075ac27b833aba46646dcd>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -229,16 +229,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "c07d7f049b4e5f35161de11d51cd8a56",
+    "cacheID": "6e73bdc26a2c6a3ec9c9af62d6323175",
     "id": null,
     "metadata": {},
     "name": "ProductTypePageBodyPaginationQuery",
     "operationKind": "query",
-    "text": "query ProductTypePageBodyPaginationQuery(\n  $after: String\n  $first: Int = 20\n  $id: ID!\n) {\n  node(id: $id) {\n    __typename\n    ...ProductTypePageBody_productType_2HEEH6\n    id\n  }\n}\n\nfragment ProductTypePageBody_productType_2HEEH6 on ProductType {\n  products(first: $first, after: $after) {\n    edges {\n      node {\n        id\n        name\n        description\n        price\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n"
+    "text": "query ProductTypePageBodyPaginationQuery(\n  $after: String\n  $first: Int = 20\n  $id: ID!\n) {\n  node(id: $id) {\n    __typename\n    ...ProductTypePageBody_productType_2HEEH6\n    id\n  }\n}\n\nfragment ProductTypePageBody_productType_2HEEH6 on ProductType {\n  products(first: $first, after: $after) {\n    edges {\n      node {\n        id\n        name\n        description\n        price @simulateError\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n"
   }
 };
 })();
 
-(node as any).hash = "ddd07bb0a5be31fe6a818930d9868f25";
+(node as any).hash = "a884f7707797126d3a6d7e4ebbd0b80e";
 
 export default node;

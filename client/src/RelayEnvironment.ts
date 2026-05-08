@@ -15,7 +15,12 @@ const fetchFn: FetchFunction = async (request, variables) => {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ query: request.text, variables }),
   });
-  return await response.json();
+
+  const json = await response.json();
+
+  console.log({ json });
+
+  return json;
 };
 
 export const RelayEnvironment = new Environment({
