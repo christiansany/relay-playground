@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f49a849da2595674608b285e4a2e35a4>>
+ * @generated SignedSource<<16cfd5867487b34c9d59229e93a84409>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -25,7 +25,7 @@ export type SectorSlugQuery$data = {
         };
       }>;
     };
-  } | null | undefined;
+  } | null;
 };
 export type SectorSlugQuery = {
   response: SectorSlugQuery$data;

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<cd0b5de2be9e7cbc92610ec9bcfeff7f>>
+ * @generated SignedSource<<2d9d542f5b16b1b7cf3af3af664c42ed>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -18,7 +18,7 @@ export type SlugProductTypeQuery$data = {
     readonly id: string;
     readonly name: string;
     readonly " $fragmentSpreads": FragmentRefs<"ProductTypePageBody_productType">;
-  } | null | undefined;
+  } | null;
 };
 export type SlugProductTypeQuery = {
   response: SlugProductTypeQuery$data;

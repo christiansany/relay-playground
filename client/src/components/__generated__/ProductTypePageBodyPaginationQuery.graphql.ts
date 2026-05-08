@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<216ee1c4454bd180091710288a750e18>>
+ * @generated SignedSource<<bc72d3f18bc5ffff8d1f4ab7dbb01704>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,14 +11,14 @@
 import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type ProductTypePageBodyPaginationQuery$variables = {
-  after?: string | null | undefined;
-  first?: number | null | undefined;
+  after?: string | null;
+  first?: number | null;
   id: string;
 };
 export type ProductTypePageBodyPaginationQuery$data = {
   readonly node: {
     readonly " $fragmentSpreads": FragmentRefs<"ProductTypePageBody_productType">;
-  } | null | undefined;
+  } | null;
 };
 export type ProductTypePageBodyPaginationQuery = {
   response: ProductTypePageBodyPaginationQuery$data;

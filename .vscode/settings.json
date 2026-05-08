@@ -1,5 +1,5 @@
 {
-  "relay.pathToConfig": "./client/relay.config.json",
+  "relay.pathToConfig": "./client/relay.config.js",
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "oxc.oxc-vscode",
   "editor.codeActionsOnSave": {
