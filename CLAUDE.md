@@ -64,3 +64,26 @@ Run `yarn relay` (or `yarn relay:watch` while iterating). Compiled artifacts emi
 ## Schema source of truth
 
 `server/schema.graphql` is the single SDL source. The client's `relay.config.json` reads it via `../server/schema.graphql`. When changing the schema, edit that file — the server reads it at boot, the relay-compiler reads it on next compile. No second copy.
+
+## `@simulateError` directive
+
+A field tagged with `@simulateError` is replaced with `null` in the response and an error is appended to `errors`. The directive is implemented entirely in the client's network function (`client/src/RelayEnvironment.ts` + `client/src/relay/simulateErrorDirective.ts`) and is dev-only (`import.meta.env.DEV`).
+
+```graphql
+query Foo {
+  sectors(first: 5) {
+    edges {
+      node {
+        id
+        name @simulateError
+      }
+    }
+  }
+}
+```
+
+For arrays the directive nulls every element's tagged field and emits one error per index, e.g. `path: ["sectors", "edges", 0, "node", "name"]`.
+
+**Where the directive is declared:** `server/schema.graphql`. It must live in the *main* schema (not in `relay.config.json`'s `schemaExtensions`), because the relay-compiler treats schemaExtensions directives as client-only and strips them from the operation text the runtime sees — which would defeat the runtime detection. The server side accepts the directive as a no-op (it's stripped from the query before send anyway).
+
+**Add a new dev-only directive** by following the same pattern: declare it in `server/schema.graphql`, parse/strip/post-process inside `RelayEnvironment.ts`'s `fetchFn`, gate on `import.meta.env.DEV`.

@@ -1,3 +1,10 @@
+"""
+Marks a field whose response should be replaced with `null` and surfaced as a
+GraphQL error. Stripped from the query before it is sent to the server, then
+applied client-side to the response. Dev only.
+"""
+directive @simulateError on FIELD
+
 interface Node {
   id: ID!
 }
