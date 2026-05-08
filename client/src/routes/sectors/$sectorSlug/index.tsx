@@ -1,8 +1,8 @@
-import { createFileRoute, Link } from '@tanstack/react-router';
-import { graphql, useLazyLoadQuery } from 'react-relay';
-import type { SectorSlugQuery as SectorSlugQueryType } from './__generated__/SectorSlugQuery.graphql.js';
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { graphql, useLazyLoadQuery } from "react-relay";
+import type { SectorSlugQuery as SectorSlugQueryType } from "./__generated__/SectorSlugQuery.graphql.js";
 
-export const Route = createFileRoute('/sectors/$sectorSlug/')({
+export const Route = createFileRoute("/sectors/$sectorSlug/")({
   component: SectorPage,
 });
 
@@ -46,7 +46,7 @@ function SectorPage() {
         <Link to="/">← Sectors</Link>
       </p>
       <h1>{name}</h1>
-      <h2 style={{ fontSize: '1rem', color: '#666' }}>Product types</h2>
+      <h2 style={{ fontSize: "1rem", color: "#666" }}>Product types</h2>
       <ul>
         {productTypes.edges.map((edge) => (
           <li key={edge.node.id}>

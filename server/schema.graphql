@@ -23,48 +23,23 @@ type Query {
   sectorById(id: ID!): Sector
   productTypeBySlug(slug: String!): ProductType
   sectorBySlug(slug: String!): Sector
-  productTypes(
-    first: Int
-    after: String
-    last: Int
-    before: String
-  ): ProductTypeConnection!
-  sectors(
-    first: Int
-    after: String
-    last: Int
-    before: String
-  ): SectorConnection!
+  productTypes(first: Int, after: String, last: Int, before: String): ProductTypeConnection!
+  sectors(first: Int, after: String, last: Int, before: String): SectorConnection!
 }
 
 type Sector implements Node {
   id: ID!
   slug: String!
   name: String!
-  productTypes(
-    first: Int
-    after: String
-    last: Int
-    before: String
-  ): ProductTypeConnection!
+  productTypes(first: Int, after: String, last: Int, before: String): ProductTypeConnection!
 }
 
 type ProductType implements Node {
   id: ID!
   slug: String!
   name: String!
-  products(
-    first: Int
-    after: String
-    last: Int
-    before: String
-  ): ProductConnection!
-  sectors(
-    first: Int
-    after: String
-    last: Int
-    before: String
-  ): SectorConnection!
+  products(first: Int, after: String, last: Int, before: String): ProductConnection!
+  sectors(first: Int, after: String, last: Int, before: String): SectorConnection!
 }
 
 type Product implements Node {

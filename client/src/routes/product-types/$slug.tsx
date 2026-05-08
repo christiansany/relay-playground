@@ -1,9 +1,9 @@
-import { createFileRoute, Link } from '@tanstack/react-router';
-import { graphql, useLazyLoadQuery } from 'react-relay';
-import { ProductTypePageBody } from '../../components/ProductTypePageBody.js';
-import type { SlugProductTypeQuery as ProductTypeBySlugQuery } from './__generated__/SlugProductTypeQuery.graphql.js';
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { graphql, useLazyLoadQuery } from "react-relay";
+import { ProductTypePageBody } from "../../components/ProductTypePageBody.js";
+import type { SlugProductTypeQuery as ProductTypeBySlugQuery } from "./__generated__/SlugProductTypeQuery.graphql.js";
 
-export const Route = createFileRoute('/product-types/$slug')({
+export const Route = createFileRoute("/product-types/$slug")({
   component: ProductTypePage,
 });
 

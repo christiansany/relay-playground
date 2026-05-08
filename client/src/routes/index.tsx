@@ -1,8 +1,8 @@
-import { createFileRoute, Link } from '@tanstack/react-router';
-import { graphql, useLazyLoadQuery } from 'react-relay';
-import type { routesIndexQuery as IndexQueryType } from './__generated__/routesIndexQuery.graphql.js';
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { graphql, useLazyLoadQuery } from "react-relay";
+import type { routesIndexQuery as IndexQueryType } from "./__generated__/routesIndexQuery.graphql.js";
 
-export const Route = createFileRoute('/')({
+export const Route = createFileRoute("/")({
   component: IndexPage,
 });
 
@@ -30,10 +30,7 @@ function IndexPage() {
       <ul>
         {data.sectors.edges.map((edge) => (
           <li key={edge.node.id}>
-            <Link
-              to="/sectors/$sectorSlug"
-              params={{ sectorSlug: edge.node.slug }}
-            >
+            <Link to="/sectors/$sectorSlug" params={{ sectorSlug: edge.node.slug }}>
               {edge.node.name}
             </Link>
           </li>

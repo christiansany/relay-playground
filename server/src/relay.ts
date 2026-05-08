@@ -1,4 +1,4 @@
-import { fromGlobalId, toGlobalId } from 'graphql-relay';
+import { fromGlobalId, toGlobalId } from "graphql-relay";
 import {
   products,
   productTypes,
@@ -6,7 +6,7 @@ import {
   type ProductRecord,
   type ProductTypeRecord,
   type SectorRecord,
-} from './data/mockData.js';
+} from "./data/mockData.js";
 
 export { fromGlobalId, toGlobalId };
 
@@ -26,8 +26,8 @@ export const nodeResolvers: {
 
 export function resolveNode(globalId: string): NodeRecord | null {
   const { type, id } = fromGlobalId(globalId);
-  if (type === 'Sector') return nodeResolvers.Sector(id);
-  if (type === 'ProductType') return nodeResolvers.ProductType(id);
-  if (type === 'Product') return nodeResolvers.Product(id);
+  if (type === "Sector") return nodeResolvers.Sector(id);
+  if (type === "ProductType") return nodeResolvers.ProductType(id);
+  if (type === "Product") return nodeResolvers.Product(id);
   return null;
 }

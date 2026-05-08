@@ -84,7 +84,7 @@ query Foo {
 
 For arrays the directive nulls every element's tagged field and emits one error per index, e.g. `path: ["sectors", "edges", 0, "node", "name"]`.
 
-**Where the directive is declared:** `server/schema.graphql`. It must live in the *main* schema (not in `relay.config.json`'s `schemaExtensions`), because the relay-compiler treats schemaExtensions directives as client-only and strips them from the operation text the runtime sees — which would defeat the runtime detection. The server side accepts the directive as a no-op (it's stripped from the query before send anyway).
+**Where the directive is declared:** `server/schema.graphql`. It must live in the _main_ schema (not in `relay.config.json`'s `schemaExtensions`), because the relay-compiler treats schemaExtensions directives as client-only and strips them from the operation text the runtime sees — which would defeat the runtime detection. The server side accepts the directive as a no-op (it's stripped from the query before send anyway).
 
 **Add a new dev-only directive** by following the same pattern: declare it in `server/schema.graphql`, parse/strip/post-process inside `RelayEnvironment.ts`'s `fetchFn`, gate on `import.meta.env.DEV`.
 

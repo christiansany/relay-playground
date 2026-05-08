@@ -1,6 +1,6 @@
-import { ApolloServer } from '@apollo/server';
-import { startStandaloneServer } from '@apollo/server/standalone';
-import { schema } from './schema.js';
+import { ApolloServer } from "@apollo/server";
+import { startStandaloneServer } from "@apollo/server/standalone";
+import { schema } from "./schema.js";
 
 const server = new ApolloServer({ schema });
 
@@ -18,12 +18,12 @@ async function shutdown(signal: NodeJS.Signals) {
   try {
     await server.stop();
   } catch (err) {
-    console.error('Error during server.stop():', err);
+    console.error("Error during server.stop():", err);
     process.exit(1);
   }
   process.exit(0);
 }
 
-process.on('SIGINT', shutdown);
-process.on('SIGTERM', shutdown);
-process.on('SIGHUP', shutdown);
+process.on("SIGINT", shutdown);
+process.on("SIGTERM", shutdown);
+process.on("SIGHUP", shutdown);

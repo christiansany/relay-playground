@@ -1,6 +1,6 @@
-import { graphql, usePaginationFragment } from 'react-relay';
-import type { ProductTypePageBody_productType$key } from './__generated__/ProductTypePageBody_productType.graphql.js';
-import type { ProductTypePageBodyPaginationQuery } from './__generated__/ProductTypePageBodyPaginationQuery.graphql.js';
+import { graphql, usePaginationFragment } from "react-relay";
+import type { ProductTypePageBody_productType$key } from "./__generated__/ProductTypePageBody_productType.graphql.js";
+import type { ProductTypePageBodyPaginationQuery } from "./__generated__/ProductTypePageBodyPaginationQuery.graphql.js";
 
 type Props = {
   productTypeRef: ProductTypePageBody_productType$key;
@@ -13,10 +13,7 @@ export function ProductTypePageBody({ productTypeRef }: Props) {
   >(
     graphql`
       fragment ProductTypePageBody_productType on ProductType
-      @argumentDefinitions(
-        first: { type: "Int", defaultValue: 20 }
-        after: { type: "String" }
-      )
+      @argumentDefinitions(first: { type: "Int", defaultValue: 20 }, after: { type: "String" })
       @refetchable(queryName: "ProductTypePageBodyPaginationQuery") {
         products(first: $first, after: $after)
           @connection(key: "ProductTypePageBody_productType_products") {
@@ -38,11 +35,9 @@ export function ProductTypePageBody({ productTypeRef }: Props) {
     <section>
       <ul>
         {data.products.edges.map((edge) => (
-          <li key={edge.node.id} style={{ marginBlock: '0.5rem' }}>
-            <strong>{edge.node.name}</strong> — {edge.node.description}{' '}
-            <span style={{ color: '#888' }}>
-              (CHF {edge.node.price.toFixed(2)})
-            </span>
+          <li key={edge.node.id} style={{ marginBlock: "0.5rem" }}>
+            <strong>{edge.node.name}</strong> — {edge.node.description}{" "}
+            <span style={{ color: "#888" }}>(CHF {edge.node.price.toFixed(2)})</span>
           </li>
         ))}
       </ul>
@@ -50,9 +45,9 @@ export function ProductTypePageBody({ productTypeRef }: Props) {
         type="button"
         disabled={!hasNext || isLoadingNext}
         onClick={() => loadNext(20)}
-        style={{ marginTop: '1rem' }}
+        style={{ marginTop: "1rem" }}
       >
-        {isLoadingNext ? 'Loading…' : hasNext ? 'Load more' : 'No more'}
+        {isLoadingNext ? "Loading…" : hasNext ? "Load more" : "No more"}
       </button>
     </section>
   );
