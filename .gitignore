@@ -1,0 +1,17 @@
+node_modules
+dist
+build
+.DS_Store
+*.log
+
+# Yarn 4 — vendor only the release binary
+.yarn/*
+!.yarn/releases
+.pnp.*
+
+# Relay compiler output
+**/__generated__
+
+# IDE
+.vscode
+.idea

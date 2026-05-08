@@ -1,0 +1,61 @@
+interface Node {
+  id: ID!
+}
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
+
+type Query {
+  node(id: ID!): Node
+  productTypeById(id: ID!): ProductType
+  productById(id: ID!): Product
+  productTypes(
+    first: Int
+    after: String
+    last: Int
+    before: String
+  ): ProductTypeConnection!
+}
+
+type ProductType implements Node {
+  id: ID!
+  name: String!
+  products(
+    first: Int
+    after: String
+    last: Int
+    before: String
+  ): ProductConnection!
+}
+
+type Product implements Node {
+  id: ID!
+  name: String!
+  description: String!
+  price: Float!
+  productType: ProductType!
+}
+
+type ProductTypeConnection {
+  edges: [ProductTypeEdge!]!
+  pageInfo: PageInfo!
+}
+
+type ProductTypeEdge {
+  cursor: String!
+  node: ProductType!
+}
+
+type ProductConnection {
+  edges: [ProductEdge!]!
+  pageInfo: PageInfo!
+}
+
+type ProductEdge {
+  cursor: String!
+  node: Product!
+}
