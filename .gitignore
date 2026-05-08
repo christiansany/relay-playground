@@ -9,12 +9,8 @@ build
 !.yarn/releases
 .pnp.*
 
-# Relay compiler output
-**/__generated__
-
 # TanStack Router generated route tree
 **/routeTree.gen.ts
 
 # IDE
-.vscode
 .idea

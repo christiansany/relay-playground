@@ -6,22 +6,23 @@ export const Route = createFileRoute('/')({
   component: IndexPage,
 });
 
-const IndexQuery = graphql`
-  query routesIndexQuery {
-    sectors(first: 50) {
-      edges {
-        node {
-          id
-          slug
-          name
+function IndexPage() {
+  const data = useLazyLoadQuery<IndexQueryType>(
+    graphql`
+      query routesIndexQuery {
+        sectors(first: 50) {
+          edges {
+            node {
+              id
+              slug
+              name
+            }
+          }
         }
       }
-    }
-  }
-`;
-
-function IndexPage() {
-  const data = useLazyLoadQuery<IndexQueryType>(IndexQuery, {});
+    `,
+    {},
+  );
 
   return (
     <main>
@@ -29,7 +30,10 @@ function IndexPage() {
       <ul>
         {data.sectors.edges.map((edge) => (
           <li key={edge.node.id}>
-            <Link to="/sectors/$slug" params={{ slug: edge.node.slug }}>
+            <Link
+              to="/sectors/$sectorSlug"
+              params={{ sectorSlug: edge.node.slug }}
+            >
               {edge.node.name}
             </Link>
           </li>
