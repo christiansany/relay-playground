@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<1985f67dcc88ffe25a76f98ce350dd19>>
+ * @generated SignedSource<<5c2ed17eeb53e0622faf680dd2886b49>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,11 +15,11 @@ export type routesIndexQuery$data = {
     readonly edges: ReadonlyArray<{
       readonly node: {
         readonly id: string;
-        readonly name: string | null;
-        readonly slug: string | null;
-      } | null;
-    }> | null;
-  } | null;
+        readonly name: string;
+        readonly slug: string;
+      };
+    }>;
+  };
 };
 export type routesIndexQuery = {
   response: routesIndexQuery$data;
@@ -93,7 +93,9 @@ return {
   "fragment": {
     "argumentDefinitions": [],
     "kind": "Fragment",
-    "metadata": null,
+    "metadata": {
+      "throwOnFieldError": true
+    },
     "name": "routesIndexQuery",
     "selections": (v0/*: any*/),
     "type": "Query",
@@ -117,6 +119,6 @@ return {
 };
 })();
 
-(node as any).hash = "0eee61dd471fe518e43e921453ca0062";
+(node as any).hash = "107ee492bad46ef4c745bb6fc22a7c74";
 
 export default node;

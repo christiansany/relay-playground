@@ -13,6 +13,7 @@ export function ProductTypePageBody({ productTypeRef }: Props) {
   >(
     graphql`
       fragment ProductTypePageBody_productType on ProductType
+      @throwOnFieldError
       @argumentDefinitions(first: { type: "Int", defaultValue: 20 }, after: { type: "String" })
       @refetchable(queryName: "ProductTypePageBodyPaginationQuery") {
         products(first: $first, after: $after)

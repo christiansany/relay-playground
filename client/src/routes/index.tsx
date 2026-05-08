@@ -9,7 +9,7 @@ export const Route = createFileRoute("/")({
 function IndexPage() {
   const data = useLazyLoadQuery<IndexQueryType>(
     graphql`
-      query routesIndexQuery {
+      query routesIndexQuery @throwOnFieldError {
         sectors(first: 50) {
           edges {
             node {

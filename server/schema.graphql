@@ -65,7 +65,7 @@ type Product implements Node {
 }
 
 type ProductTypeConnection {
-  edges: [ProductTypeEdge!] @semanticNonNull(levels: [0, 1])
+  edges: [ProductTypeEdge] @semanticNonNull(levels: [0, 1])
   pageInfo: PageInfo @semanticNonNull
 }
 
@@ -75,7 +75,7 @@ type ProductTypeEdge {
 }
 
 type ProductConnection {
-  edges: [ProductEdge!] @semanticNonNull(levels: [0, 1])
+  edges: [ProductEdge] @semanticNonNull(levels: [0, 1])
   pageInfo: PageInfo @semanticNonNull
 }
 
@@ -85,7 +85,7 @@ type ProductEdge {
 }
 
 type SectorConnection {
-  edges: [SectorEdge!] @semanticNonNull(levels: [0, 1])
+  edges: [SectorEdge] @semanticNonNull(levels: [0, 1])
   pageInfo: PageInfo @semanticNonNull
 }
 

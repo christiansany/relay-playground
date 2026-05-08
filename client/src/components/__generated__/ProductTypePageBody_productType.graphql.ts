@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<a9038c992cbb0574b70a47592f1b604d>>
+ * @generated SignedSource<<b34c6bce0c1199bcbe7c1dda06dfcd99>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,13 +15,13 @@ export type ProductTypePageBody_productType$data = {
   readonly products: {
     readonly edges: ReadonlyArray<{
       readonly node: {
-        readonly description: string | null;
+        readonly description: string;
         readonly id: string;
-        readonly name: string | null;
-        readonly price: number | null;
-      } | null;
-    }> | null;
-  } | null;
+        readonly name: string;
+        readonly price: number;
+      };
+    }>;
+  };
   readonly " $fragmentType": "ProductTypePageBody_productType";
 };
 export type ProductTypePageBody_productType$key = {
@@ -65,6 +65,7 @@ return {
         "path": (v0/*: any*/)
       }
     ],
+    "throwOnFieldError": true,
     "refetch": {
       "connection": {
         "forward": {
@@ -187,6 +188,6 @@ return {
 };
 })();
 
-(node as any).hash = "6c5ad35b2c38a9c89287036269f268c6";
+(node as any).hash = "ddd07bb0a5be31fe6a818930d9868f25";
 
 export default node;

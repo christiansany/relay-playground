@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b7a83433fe469646c6182a567bc392d0>>
+ * @generated SignedSource<<203de4c96e4dbcd8af4d37cfdf3188a4>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,16 +15,16 @@ export type SectorSlugQuery$variables = {
 export type SectorSlugQuery$data = {
   readonly sectorBySlug: {
     readonly id: string;
-    readonly name: string | null;
+    readonly name: string;
     readonly productTypes: {
       readonly edges: ReadonlyArray<{
         readonly node: {
           readonly id: string;
-          readonly name: string | null;
-          readonly slug: string | null;
-        } | null;
-      }> | null;
-    } | null;
+          readonly name: string;
+          readonly slug: string;
+        };
+      }>;
+    };
   } | null;
 };
 export type SectorSlugQuery = {
@@ -127,7 +127,9 @@ return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
-    "metadata": null,
+    "metadata": {
+      "throwOnFieldError": true
+    },
     "name": "SectorSlugQuery",
     "selections": (v3/*: any*/),
     "type": "Query",
@@ -151,6 +153,6 @@ return {
 };
 })();
 
-(node as any).hash = "6de0411498437bb34d0c77b5598ccb1b";
+(node as any).hash = "2defbf7123398abb0c0341c8d33edc9c";
 
 export default node;

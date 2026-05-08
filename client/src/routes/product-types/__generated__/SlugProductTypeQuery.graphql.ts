@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<a16be02fb208cb233b9653dc8338c5d4>>
+ * @generated SignedSource<<e64756eb8ad6ffcf23a7ac5e14f0784e>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -16,7 +16,7 @@ export type SlugProductTypeQuery$variables = {
 export type SlugProductTypeQuery$data = {
   readonly productTypeBySlug: {
     readonly id: string;
-    readonly name: string | null;
+    readonly name: string;
     readonly " $fragmentSpreads": FragmentRefs<"ProductTypePageBody_productType">;
   } | null;
 };
@@ -65,7 +65,9 @@ return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
-    "metadata": null,
+    "metadata": {
+      "throwOnFieldError": true
+    },
     "name": "SlugProductTypeQuery",
     "selections": [
       {
@@ -219,6 +221,6 @@ return {
 };
 })();
 
-(node as any).hash = "f2eaabda91978c31dc823deadd4267f4";
+(node as any).hash = "9a419d54f3e5a952ba9ab476028015b0";
 
 export default node;

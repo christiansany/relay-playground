@@ -11,7 +11,8 @@ function NestedProductTypePage() {
   const { sectorSlug, productTypeSlug } = Route.useParams();
   const data = useLazyLoadQuery<ProductTypeSlugQueryType>(
     graphql`
-      query ProductTypeSlugQuery($sectorSlug: String!, $productTypeSlug: String!) {
+      query ProductTypeSlugQuery($sectorSlug: String!, $productTypeSlug: String!)
+      @throwOnFieldError {
         sectorBySlug(slug: $sectorSlug) {
           id
           name

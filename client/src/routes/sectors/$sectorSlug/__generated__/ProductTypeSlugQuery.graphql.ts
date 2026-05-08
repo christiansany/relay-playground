@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<6e3e38a20d7092134b4eb8855dfe9941>>
+ * @generated SignedSource<<7eafe12f2d5ffb7d15fd1e282341fcd8>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -17,13 +17,13 @@ export type ProductTypeSlugQuery$variables = {
 export type ProductTypeSlugQuery$data = {
   readonly productTypeBySlug: {
     readonly id: string;
-    readonly name: string | null;
+    readonly name: string;
     readonly " $fragmentSpreads": FragmentRefs<"ProductTypePageBody_productType">;
   } | null;
   readonly sectorBySlug: {
     readonly id: string;
-    readonly name: string | null;
-    readonly slug: string | null;
+    readonly name: string;
+    readonly slug: string;
   } | null;
 };
 export type ProductTypeSlugQuery = {
@@ -103,7 +103,9 @@ return {
       (v1/*: any*/)
     ],
     "kind": "Fragment",
-    "metadata": null,
+    "metadata": {
+      "throwOnFieldError": true
+    },
     "name": "ProductTypeSlugQuery",
     "selections": [
       (v4/*: any*/),
@@ -262,6 +264,6 @@ return {
 };
 })();
 
-(node as any).hash = "59d271b34fd8a74182d2e87c2945cd18";
+(node as any).hash = "d3d53ad7691f86d8836b808448232b73";
 
 export default node;

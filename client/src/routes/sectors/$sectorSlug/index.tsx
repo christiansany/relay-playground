@@ -10,7 +10,7 @@ function SectorPage() {
   const { sectorSlug } = Route.useParams();
   const data = useLazyLoadQuery<SectorSlugQueryType>(
     graphql`
-      query SectorSlugQuery($sectorSlug: String!) {
+      query SectorSlugQuery($sectorSlug: String!) @throwOnFieldError {
         sectorBySlug(slug: $sectorSlug) {
           id
           name

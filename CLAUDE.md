@@ -97,6 +97,8 @@ Annotates a field whose position is "semantically non-null": the value is only n
 
 **Convention in this repo:** every non-null field gets `@semanticNonNull` _except `id` fields_ (Node spec requires `id: ID!` to be truly non-null with no error tolerance). When you add a new non-null field, annotate it.
 
+**Honoring it on the client:** every query and fragment in this repo carries `@throwOnFieldError`. Without it, Relay would null `@semanticNonNull` fields and only log — components would dereference null and crash with confusing stack traces. With it, Relay throws a `RelayFieldError` at the read site whenever any selected field has a matching error, which the root `<ErrorBoundary>` catches. **Add `@throwOnFieldError` to every new query and fragment** — this is non-negotiable as long as we're using `@semanticNonNull`.
+
 ## Error boundary
 
 `client/src/components/ErrorBoundary.tsx` is a minimal, framework-agnostic React class boundary. It accepts only `children` and `fallback` (a `ReactNode`) and renders `fallback` once any descendant throws. It has no reset behavior — recovery happens by remounting (e.g. navigating away). It's mounted in `routes/__root.tsx`, **outside** the `<Suspense>` that wraps `<Outlet />`.

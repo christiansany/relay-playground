@@ -11,7 +11,7 @@ function ProductTypePage() {
   const { slug } = Route.useParams();
   const data = useLazyLoadQuery<ProductTypeBySlugQuery>(
     graphql`
-      query SlugProductTypeQuery($slug: String!) {
+      query SlugProductTypeQuery($slug: String!) @throwOnFieldError {
         productTypeBySlug(slug: $slug) {
           id
           name
