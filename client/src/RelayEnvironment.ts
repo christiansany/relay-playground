@@ -2,6 +2,7 @@ import {
   Environment,
   Network,
   RecordSource,
+  ROOT_TYPE,
   Store,
   type FetchFunction,
   type GraphQLSingularResponse,
@@ -55,4 +56,20 @@ const fetchFn: FetchFunction = async (request, variables) => {
 export const RelayEnvironment = new Environment({
   network: Network.create(fetchFn),
   store: new Store(new RecordSource()),
+  missingFieldHandlers: [
+    {
+      handle(field, record, argValues) {
+        if (
+          record != null &&
+          record.getType() === ROOT_TYPE &&
+          (field.name === "node" || field.name.endsWith("ById")) &&
+          "id" in argValues
+        ) {
+          return argValues.id;
+        }
+        return undefined;
+      },
+      kind: "linked",
+    },
+  ],
 });
