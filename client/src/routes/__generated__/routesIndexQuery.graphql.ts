@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f6c360fe17a5b4cca44a997c0edc4fcc>>
+ * @generated SignedSource<<1985f67dcc88ffe25a76f98ce350dd19>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,11 +15,11 @@ export type routesIndexQuery$data = {
     readonly edges: ReadonlyArray<{
       readonly node: {
         readonly id: string;
-        readonly name: string;
-        readonly slug: string;
-      };
-    }>;
-  };
+        readonly name: string | null;
+        readonly slug: string | null;
+      } | null;
+    }> | null;
+  } | null;
 };
 export type routesIndexQuery = {
   response: routesIndexQuery$data;

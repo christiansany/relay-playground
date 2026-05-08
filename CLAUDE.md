@@ -61,32 +61,41 @@ The babel-plugin-relay rewrite is identical either way; this is purely a colocat
 
 Run `yarn relay` (or `yarn relay:watch` while iterating). Compiled artifacts emit into a `__generated__/` folder next to the source file. Don't hand-edit them — they're gitignored.
 
+## Formatting
+
+Run `yarn fmt` after every set of edits — before declaring a task done, before committing, before reporting back. The repo uses `oxfmt`; running it once at the end keeps the diff free of style noise so subsequent reviews focus on real changes.
+
 ## Schema source of truth
 
 `server/schema.graphql` is the single SDL source. The client's `relay.config.json` reads it via `../server/schema.graphql`. When changing the schema, edit that file — the server reads it at boot, the relay-compiler reads it on next compile. No second copy.
 
 ## `@simulateError` directive
 
-A field tagged with `@simulateError` is replaced with `null` in the response and an error is appended to `errors`. The directive is implemented entirely in the client's network function (`client/src/RelayEnvironment.ts` + `client/src/relay/simulateErrorDirective.ts`) and is dev-only (`import.meta.env.DEV`).
+Declared in `server/schema.graphql` as `directive @simulateError on FIELD_DEFINITION`. A schema field tagged with `@simulateError` resolves by always throwing a `GraphQLError("Simulated error via @simulateError directive")`. The error lands in `errors[]` at the field's path; the field nulls in place (bubbling up only as far as the next non-`@semanticNonNull` boundary).
+
+Implemented via a `mapSchema` transformer in `server/src/directives/simulateError.ts`, applied to the executable schema in `server/src/schema.ts`.
 
 ```graphql
-query Foo {
-  sectors(first: 5) {
-    edges {
-      node {
-        id
-        name @simulateError
-      }
-    }
-  }
+type Sector implements Node {
+  id: ID!
+  name: String @semanticNonNull @simulateError  # always errors when read
+  ...
 }
 ```
 
-For arrays the directive nulls every element's tagged field and emits one error per index, e.g. `path: ["sectors", "edges", 0, "node", "name"]`.
+Pair with `@semanticNonNull` (which is already on every nullable-but-required field in this repo) so the error stops at the field instead of nulling the whole parent.
 
-**Where the directive is declared:** `server/schema.graphql`. It must live in the _main_ schema (not in `relay.config.json`'s `schemaExtensions`), because the relay-compiler treats schemaExtensions directives as client-only and strips them from the operation text the runtime sees — which would defeat the runtime detection. The server side accepts the directive as a no-op (it's stripped from the query before send anyway).
+## `@semanticNonNull` directive
 
-**Add a new dev-only directive** by following the same pattern: declare it in `server/schema.graphql`, parse/strip/post-process inside `RelayEnvironment.ts`'s `fetchFn`, gate on `import.meta.env.DEV`.
+Declared in `server/schema.graphql` per [Apollo's nullability spec v0.4](https://specs.apollo.dev/nullability/v0.4/):
+
+```graphql
+directive @semanticNonNull(levels: [Int!]! = [0]) on FIELD_DEFINITION
+```
+
+Annotates a field whose position is "semantically non-null": the value is only null when a matching entry exists in the `errors` array, and errors are not bubbled up to the nearest nullable parent — they stay at the field. `levels` is zero-indexed: level 0 is the outermost type, level 1 is the inner element of a list. For a `[T!]!` field use `levels: [0, 1]` to cover both. Pure SDL annotation: no server-side runtime behavior; relay-compiler reads it from the schema.
+
+**Convention in this repo:** every non-null field gets `@semanticNonNull` _except `id` fields_ (Node spec requires `id: ID!` to be truly non-null with no error tolerance). When you add a new non-null field, annotate it.
 
 ## Error boundary
 
@@ -107,4 +116,4 @@ query Foo @throwOnFieldError {
 }
 ```
 
-`@throwOnFieldError` is stripped from the network text by the relay-compiler (it's a client-runtime directive); only `@simulateError` actually goes over the wire. When the simulated error lands in the response's `errors` array, Relay throws on read at the hook, the boundary catches it, and the Try-again button clears the boundary so a fresh navigation re-fetches.
+`@throwOnFieldError` is stripped from the network text by the relay-compiler (it's a client-runtime directive); only `@simulateError` actually goes over the wire. When the error (whether server-thrown via `@simulateError on FIELD_DEFINITION` or client-injected via `@simulateError on FIELD`) lands in the response's `errors` array, Relay throws on read at the hook, the boundary catches it, and remounting (e.g. navigating to another route and back) re-fetches.

@@ -1,17 +1,29 @@
 """
-Marks a field whose response should be replaced with `null` and surfaced as a
-GraphQL error. Stripped from the query before it is sent to the server, then
-applied client-side to the response. Dev only.
+Indicates that a field's position is semantically non-null: it is only null
+when a matching entry exists in the `errors` array. Errors are not bubbled up
+to the nearest nullable parent. See https://specs.apollo.dev/nullability/v0.4/
+
+`levels` is zero-indexed: level 0 is the outermost type, level 1 is the inner
+element of a list, and so on. `[0, 1]` covers both wrapper and items of a
+`[T!]!` field.
 """
-directive @simulateError on FIELD
+directive @semanticNonNull(levels: [Int!]! = [0]) on FIELD_DEFINITION
+
+"""
+Marks a schema field whose resolver always throws a GraphQL field error —
+useful for testing error handling end-to-end without changing resolvers.
+The error lands in `errors[]` at the field's path; combine with
+`@semanticNonNull` so the field nulls in place instead of bubbling.
+"""
+directive @simulateError on FIELD_DEFINITION
 
 interface Node {
   id: ID!
 }
 
 type PageInfo {
-  hasNextPage: Boolean!
-  hasPreviousPage: Boolean!
+  hasNextPage: Boolean @semanticNonNull
+  hasPreviousPage: Boolean @semanticNonNull
   startCursor: String
   endCursor: String
 }
@@ -23,59 +35,61 @@ type Query {
   sectorById(id: ID!): Sector
   productTypeBySlug(slug: String!): ProductType
   sectorBySlug(slug: String!): Sector
-  productTypes(first: Int, after: String, last: Int, before: String): ProductTypeConnection!
-  sectors(first: Int, after: String, last: Int, before: String): SectorConnection!
+  productTypes(first: Int, after: String, last: Int, before: String): ProductTypeConnection
+    @semanticNonNull
+  sectors(first: Int, after: String, last: Int, before: String): SectorConnection @semanticNonNull
 }
 
 type Sector implements Node {
   id: ID!
-  slug: String!
-  name: String!
-  productTypes(first: Int, after: String, last: Int, before: String): ProductTypeConnection!
+  slug: String @semanticNonNull
+  name: String @semanticNonNull
+  productTypes(first: Int, after: String, last: Int, before: String): ProductTypeConnection
+    @semanticNonNull
 }
 
 type ProductType implements Node {
   id: ID!
-  slug: String!
-  name: String!
-  products(first: Int, after: String, last: Int, before: String): ProductConnection!
-  sectors(first: Int, after: String, last: Int, before: String): SectorConnection!
+  slug: String @semanticNonNull
+  name: String @semanticNonNull
+  products(first: Int, after: String, last: Int, before: String): ProductConnection @semanticNonNull
+  sectors(first: Int, after: String, last: Int, before: String): SectorConnection @semanticNonNull
 }
 
 type Product implements Node {
   id: ID!
-  name: String!
-  description: String!
-  price: Float!
-  productType: ProductType!
+  name: String @semanticNonNull
+  description: String @semanticNonNull
+  price: Float @semanticNonNull
+  productType: ProductType @semanticNonNull
 }
 
 type ProductTypeConnection {
-  edges: [ProductTypeEdge!]!
-  pageInfo: PageInfo!
+  edges: [ProductTypeEdge!] @semanticNonNull(levels: [0, 1])
+  pageInfo: PageInfo @semanticNonNull
 }
 
 type ProductTypeEdge {
-  cursor: String!
-  node: ProductType!
+  cursor: String @semanticNonNull
+  node: ProductType @semanticNonNull
 }
 
 type ProductConnection {
-  edges: [ProductEdge!]!
-  pageInfo: PageInfo!
+  edges: [ProductEdge!] @semanticNonNull(levels: [0, 1])
+  pageInfo: PageInfo @semanticNonNull
 }
 
 type ProductEdge {
-  cursor: String!
-  node: Product!
+  cursor: String @semanticNonNull
+  node: Product @semanticNonNull
 }
 
 type SectorConnection {
-  edges: [SectorEdge!]!
-  pageInfo: PageInfo!
+  edges: [SectorEdge!] @semanticNonNull(levels: [0, 1])
+  pageInfo: PageInfo @semanticNonNull
 }
 
 type SectorEdge {
-  cursor: String!
-  node: Sector!
+  cursor: String @semanticNonNull
+  node: Sector @semanticNonNull
 }

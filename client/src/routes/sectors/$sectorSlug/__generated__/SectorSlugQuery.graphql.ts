@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<16cfd5867487b34c9d59229e93a84409>>
+ * @generated SignedSource<<b7a83433fe469646c6182a567bc392d0>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,16 +15,16 @@ export type SectorSlugQuery$variables = {
 export type SectorSlugQuery$data = {
   readonly sectorBySlug: {
     readonly id: string;
-    readonly name: string;
+    readonly name: string | null;
     readonly productTypes: {
       readonly edges: ReadonlyArray<{
         readonly node: {
           readonly id: string;
-          readonly name: string;
-          readonly slug: string;
-        };
-      }>;
-    };
+          readonly name: string | null;
+          readonly slug: string | null;
+        } | null;
+      }> | null;
+    } | null;
   } | null;
 };
 export type SectorSlugQuery = {

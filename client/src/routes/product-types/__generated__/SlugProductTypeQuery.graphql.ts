@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<2d9d542f5b16b1b7cf3af3af664c42ed>>
+ * @generated SignedSource<<a16be02fb208cb233b9653dc8338c5d4>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -16,7 +16,7 @@ export type SlugProductTypeQuery$variables = {
 export type SlugProductTypeQuery$data = {
   readonly productTypeBySlug: {
     readonly id: string;
-    readonly name: string;
+    readonly name: string | null;
     readonly " $fragmentSpreads": FragmentRefs<"ProductTypePageBody_productType">;
   } | null;
 };

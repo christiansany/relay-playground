@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<e858efe4b5fc156f7db14d18746ac5f8>>
+ * @generated SignedSource<<6e3e38a20d7092134b4eb8855dfe9941>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -17,13 +17,13 @@ export type ProductTypeSlugQuery$variables = {
 export type ProductTypeSlugQuery$data = {
   readonly productTypeBySlug: {
     readonly id: string;
-    readonly name: string;
+    readonly name: string | null;
     readonly " $fragmentSpreads": FragmentRefs<"ProductTypePageBody_productType">;
   } | null;
   readonly sectorBySlug: {
     readonly id: string;
-    readonly name: string;
-    readonly slug: string;
+    readonly name: string | null;
+    readonly slug: string | null;
   } | null;
 };
 export type ProductTypeSlugQuery = {
