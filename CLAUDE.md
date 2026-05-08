@@ -87,3 +87,24 @@ For arrays the directive nulls every element's tagged field and emits one error 
 **Where the directive is declared:** `server/schema.graphql`. It must live in the *main* schema (not in `relay.config.json`'s `schemaExtensions`), because the relay-compiler treats schemaExtensions directives as client-only and strips them from the operation text the runtime sees — which would defeat the runtime detection. The server side accepts the directive as a no-op (it's stripped from the query before send anyway).
 
 **Add a new dev-only directive** by following the same pattern: declare it in `server/schema.graphql`, parse/strip/post-process inside `RelayEnvironment.ts`'s `fetchFn`, gate on `import.meta.env.DEV`.
+
+## Error boundary
+
+`client/src/components/ErrorBoundary.tsx` is a minimal, framework-agnostic React class boundary. It accepts only `children` and `fallback` (a `ReactNode`) and renders `fallback` once any descendant throws. It has no reset behavior — recovery happens by remounting (e.g. navigating away). It's mounted in `routes/__root.tsx`, **outside** the `<Suspense>` that wraps `<Outlet />`.
+
+**To make `@simulateError` actually reach the boundary**, just nulling a field is not enough — Relay's default behavior is to surface field errors as a partial read with a console warning, not a thrown exception. Use `@throwOnFieldError` (a built-in relay-runtime directive) on the operation or fragment that selects the simulated field:
+
+```graphql
+query Foo @throwOnFieldError {
+  sectors(first: 5) {
+    edges {
+      node {
+        id
+        name @simulateError
+      }
+    }
+  }
+}
+```
+
+`@throwOnFieldError` is stripped from the network text by the relay-compiler (it's a client-runtime directive); only `@simulateError` actually goes over the wire. When the simulated error lands in the response's `errors` array, Relay throws on read at the hook, the boundary catches it, and the Try-again button clears the boundary so a fresh navigation re-fetches.

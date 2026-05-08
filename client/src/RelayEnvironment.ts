@@ -5,23 +5,27 @@ import {
   Store,
   type FetchFunction,
   type GraphQLSingularResponse,
-} from 'relay-runtime';
+} from "relay-runtime";
 import {
   parseSimulateErrorDirectives,
   simulateFieldErrors,
   stripSimulateErrorDirectives,
   type SimulateErrorField,
-} from './relay/simulateErrorDirective.js';
+} from "./relay/simulateErrorDirective.js";
 
-const GRAPHQL_ENDPOINT = 'http://localhost:4000/graphql';
+const GRAPHQL_ENDPOINT = "http://localhost:4000/graphql";
 
 const fetchFn: FetchFunction = async (request, variables) => {
-  let query = request.text ?? '';
+  if (!request.text) {
+    throw new Error("Relay request text is missing");
+  }
+
+  let query = request.text;
   let simulateErrorFields: SimulateErrorField[] = [];
 
   // Dev-only: detect @simulateError, strip the directive before sending,
   // remember which fields to null in the response.
-  if (import.meta.env.DEV && query.includes('@simulateError')) {
+  if (import.meta.env.DEV && query.includes("@simulateError")) {
     simulateErrorFields = parseSimulateErrorDirectives(query);
     if (simulateErrorFields.length > 0) {
       query = stripSimulateErrorDirectives(query);
@@ -29,8 +33,8 @@ const fetchFn: FetchFunction = async (request, variables) => {
   }
 
   const response = await fetch(GRAPHQL_ENDPOINT, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ query, variables }),
   });
 
@@ -40,7 +44,7 @@ const fetchFn: FetchFunction = async (request, variables) => {
     json = simulateFieldErrors(json, simulateErrorFields);
     console.log(
       `[Relay] Simulated ${simulateErrorFields.length} error(s) for ${
-        request.name ?? '(anonymous)'
+        request.name ?? "(anonymous)"
       }`,
     );
   }
