@@ -23,7 +23,7 @@ export function ProductTypePageBody({ productTypeRef }: Props) {
               id
               name
               description
-              price @simulateError
+              price
             }
           }
         }

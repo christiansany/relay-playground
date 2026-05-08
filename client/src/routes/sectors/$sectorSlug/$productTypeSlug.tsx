@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { graphql, useLazyLoadQuery } from "react-relay";
 import { ProductTypePageBody } from "../../../components/ProductTypePageBody.js";
 import type { ProductTypeSlugQuery as ProductTypeSlugQueryType } from "./__generated__/ProductTypeSlugQuery.graphql.js";
+import { ErrorBoundary } from "../../../components/ErrorBoundary.js";
 
 export const Route = createFileRoute("/sectors/$sectorSlug/$productTypeSlug")({
   component: NestedProductTypePage,
@@ -55,7 +56,10 @@ function NestedProductTypePage() {
         <span>{data.productTypeBySlug.name}</span>
       </p>
       <h1>{data.productTypeBySlug.name}</h1>
-      <ProductTypePageBody productTypeRef={data.productTypeBySlug} />
+
+      <ErrorBoundary fallback={<p>Error in ProductTypePageBody</p>}>
+        <ProductTypePageBody productTypeRef={data.productTypeBySlug} />
+      </ErrorBoundary>
     </main>
   );
 }

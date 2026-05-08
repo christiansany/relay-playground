@@ -10,20 +10,14 @@ element of a list, and so on. `[0, 1]` covers both wrapper and items of a
 directive @semanticNonNull(levels: [Int!]! = [0]) on FIELD_DEFINITION
 
 """
-Forces a field to resolve as an error.
-
-On FIELD: tag a field selection inside a query/fragment to make that one
-read error. The server inspects the operation AST and throws when
-resolving the tagged field.
-
-On FIELD_DEFINITION: tag a schema field so its resolver always throws,
-regardless of who selects it.
-
-In both cases the error lands in `errors[]` at the field's path. Pair
-with `@semanticNonNull` (or `@throwOnFieldError` on the operation) so
-the field nulls in place rather than bubbling up.
+Forces a field to resolve as an error. Tag a field selection inside a
+query/fragment to make that one read error: the server inspects the
+operation AST and throws when resolving the tagged field. The error
+lands in `errors[]` at the field's path. Pair with `@semanticNonNull`
+(or `@throwOnFieldError` on the operation) so the field nulls in place
+rather than bubbling up.
 """
-directive @simulateError on FIELD | FIELD_DEFINITION
+directive @simulateError on FIELD
 
 interface Node {
   id: ID!

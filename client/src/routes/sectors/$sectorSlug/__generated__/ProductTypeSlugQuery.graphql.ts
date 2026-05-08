@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<d5c2a78de235620ebd36f53eb860a062>>
+ * @generated SignedSource<<7eafe12f2d5ffb7d15fd1e282341fcd8>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -254,12 +254,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "4544fbc739525d33b7551fe5b80edd66",
+    "cacheID": "41ccda14c1b942f5c299bdb5b1d51ee3",
     "id": null,
     "metadata": {},
     "name": "ProductTypeSlugQuery",
     "operationKind": "query",
-    "text": "query ProductTypeSlugQuery(\n  $sectorSlug: String!\n  $productTypeSlug: String!\n) {\n  sectorBySlug(slug: $sectorSlug) {\n    id\n    name\n    slug\n  }\n  productTypeBySlug(slug: $productTypeSlug) {\n    id\n    name\n    ...ProductTypePageBody_productType\n  }\n}\n\nfragment ProductTypePageBody_productType on ProductType {\n  products(first: 20) {\n    edges {\n      node {\n        id\n        name\n        description\n        price @simulateError\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n"
+    "text": "query ProductTypeSlugQuery(\n  $sectorSlug: String!\n  $productTypeSlug: String!\n) {\n  sectorBySlug(slug: $sectorSlug) {\n    id\n    name\n    slug\n  }\n  productTypeBySlug(slug: $productTypeSlug) {\n    id\n    name\n    ...ProductTypePageBody_productType\n  }\n}\n\nfragment ProductTypePageBody_productType on ProductType {\n  products(first: 20) {\n    edges {\n      node {\n        id\n        name\n        description\n        price\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n"
   }
 };
 })();
