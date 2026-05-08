@@ -13,6 +13,27 @@ type Query {
   node(id: ID!): Node
   productTypeById(id: ID!): ProductType
   productById(id: ID!): Product
+  sectorById(id: ID!): Sector
+  productTypeBySlug(slug: String!): ProductType
+  sectorBySlug(slug: String!): Sector
+  productTypes(
+    first: Int
+    after: String
+    last: Int
+    before: String
+  ): ProductTypeConnection!
+  sectors(
+    first: Int
+    after: String
+    last: Int
+    before: String
+  ): SectorConnection!
+}
+
+type Sector implements Node {
+  id: ID!
+  slug: String!
+  name: String!
   productTypes(
     first: Int
     after: String
@@ -23,6 +44,7 @@ type Query {
 
 type ProductType implements Node {
   id: ID!
+  slug: String!
   name: String!
   products(
     first: Int
@@ -30,6 +52,12 @@ type ProductType implements Node {
     last: Int
     before: String
   ): ProductConnection!
+  sectors(
+    first: Int
+    after: String
+    last: Int
+    before: String
+  ): SectorConnection!
 }
 
 type Product implements Node {
@@ -58,4 +86,14 @@ type ProductConnection {
 type ProductEdge {
   cursor: String!
   node: Product!
+}
+
+type SectorConnection {
+  edges: [SectorEdge!]!
+  pageInfo: PageInfo!
+}
+
+type SectorEdge {
+  cursor: String!
+  node: Sector!
 }

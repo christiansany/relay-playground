@@ -11,7 +11,7 @@
     "server"
   ],
   "scripts": {
-    "dev": "concurrently -n server,client -c blue,green \"yarn workspace server dev\" \"yarn workspace client dev\"",
+    "dev": "concurrently --kill-others --kill-signal SIGTERM -n server,client -c blue,green \"yarn workspace server dev\" \"yarn workspace client dev\"",
     "relay": "yarn workspace client relay",
     "relay:watch": "yarn workspace client relay --watch",
     "build": "yarn workspaces foreach -A run build"
