@@ -18,8 +18,6 @@ const fetchFn: FetchFunction = async (request, variables) => {
 
   const json = await response.json();
 
-  console.log({ json });
-
   return json;
 };
 
