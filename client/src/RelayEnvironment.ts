@@ -1,6 +1,7 @@
 import {
   Environment,
   Network,
+  Observable,
   RecordSource,
   ROOT_TYPE,
   Store,
@@ -9,17 +10,27 @@ import {
 
 const GRAPHQL_ENDPOINT = "http://localhost:4000/graphql";
 
-const fetchFn: FetchFunction = async (request, variables) => {
-  const response = await fetch(GRAPHQL_ENDPOINT, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ query: request.text, variables }),
+const fetchFn: FetchFunction = (request, variables) =>
+  Observable.create((sink) => {
+    const controller = new AbortController();
+
+    fetch(GRAPHQL_ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ query: request.text, variables }),
+      signal: controller.signal,
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        sink.next(json);
+        sink.complete();
+      })
+      .catch((err) => {
+        if (!sink.closed) sink.error(err);
+      });
+
+    return () => controller.abort();
   });
-
-  const json = await response.json();
-
-  return json;
-};
 
 export const RelayEnvironment = new Environment({
   network: Network.create(fetchFn),
