@@ -48,6 +48,7 @@ type Sector implements Node {
   name: String @semanticNonNull
   productTypes(first: Int, after: String, last: Int, before: String): ProductTypeConnection
     @semanticNonNull
+  products(first: Int, after: String, last: Int, before: String): ProductConnection @semanticNonNull
 }
 
 type ProductType implements Node {

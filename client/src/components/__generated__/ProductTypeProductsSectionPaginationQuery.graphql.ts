@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<0fd4af4bf1df881d7f7527bb89431cc9>>
+ * @generated SignedSource<<fa35aa02e86a8f33d21613ca2ed7b802>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,19 +10,19 @@
 
 import { ConcreteRequest } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ProductTypePageBodyPaginationQuery$variables = {
+export type ProductTypeProductsSectionPaginationQuery$variables = {
   after?: string | null;
   first?: number | null;
   id: string;
 };
-export type ProductTypePageBodyPaginationQuery$data = {
+export type ProductTypeProductsSectionPaginationQuery$data = {
   readonly node: {
-    readonly " $fragmentSpreads": FragmentRefs<"ProductTypePageBody_productType">;
+    readonly " $fragmentSpreads": FragmentRefs<"ProductTypeProductsSection_productType">;
   } | null;
 };
-export type ProductTypePageBodyPaginationQuery = {
-  response: ProductTypePageBodyPaginationQuery$data;
-  variables: ProductTypePageBodyPaginationQuery$variables;
+export type ProductTypeProductsSectionPaginationQuery = {
+  response: ProductTypeProductsSectionPaginationQuery$data;
+  variables: ProductTypeProductsSectionPaginationQuery$variables;
 };
 
 const node: ConcreteRequest = (function(){
@@ -81,7 +81,7 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "ProductTypePageBodyPaginationQuery",
+    "name": "ProductTypeProductsSectionPaginationQuery",
     "selections": [
       {
         "alias": null,
@@ -94,7 +94,7 @@ return {
           {
             "args": (v2/*: any*/),
             "kind": "FragmentSpread",
-            "name": "ProductTypePageBody_productType"
+            "name": "ProductTypeProductsSection_productType"
           }
         ],
         "storageKey": null
@@ -107,7 +107,7 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "ProductTypePageBodyPaginationQuery",
+    "name": "ProductTypeProductsSectionPaginationQuery",
     "selections": [
       {
         "alias": null,
@@ -215,7 +215,7 @@ return {
                 "args": (v2/*: any*/),
                 "filters": null,
                 "handle": "connection",
-                "key": "ProductTypePageBody_productType_products",
+                "key": "ProductTypeProductsSection_productType_products",
                 "kind": "LinkedHandle",
                 "name": "products"
               }
@@ -229,16 +229,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "c07d7f049b4e5f35161de11d51cd8a56",
+    "cacheID": "f9f0d68ff419f709f3d1eb605b87f011",
     "id": null,
     "metadata": {},
-    "name": "ProductTypePageBodyPaginationQuery",
+    "name": "ProductTypeProductsSectionPaginationQuery",
     "operationKind": "query",
-    "text": "query ProductTypePageBodyPaginationQuery(\n  $after: String\n  $first: Int = 20\n  $id: ID!\n) {\n  node(id: $id) {\n    __typename\n    ...ProductTypePageBody_productType_2HEEH6\n    id\n  }\n}\n\nfragment ProductTypePageBody_productType_2HEEH6 on ProductType {\n  products(first: $first, after: $after) {\n    edges {\n      node {\n        id\n        name\n        description\n        price\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n"
+    "text": "query ProductTypeProductsSectionPaginationQuery(\n  $after: String\n  $first: Int = 20\n  $id: ID!\n) {\n  node(id: $id) {\n    __typename\n    ...ProductTypeProductsSection_productType_2HEEH6\n    id\n  }\n}\n\nfragment ProductTypeProductsSection_productType_2HEEH6 on ProductType {\n  products(first: $first, after: $after) {\n    edges {\n      node {\n        id\n        name\n        description\n        price\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n"
   }
 };
 })();
 
-(node as any).hash = "ddd07bb0a5be31fe6a818930d9868f25";
+(node as any).hash = "b24281b5301b7e3c46618afac8fda46a";
 
 export default node;

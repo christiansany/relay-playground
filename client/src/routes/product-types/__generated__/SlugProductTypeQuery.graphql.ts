@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<e64756eb8ad6ffcf23a7ac5e14f0784e>>
+ * @generated SignedSource<<e217f0fb06f0a7e7e2225cf7f50e94de>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -17,7 +17,7 @@ export type SlugProductTypeQuery$data = {
   readonly productTypeBySlug: {
     readonly id: string;
     readonly name: string;
-    readonly " $fragmentSpreads": FragmentRefs<"ProductTypePageBody_productType">;
+    readonly " $fragmentSpreads": FragmentRefs<"ProductTypeProductsSection_productType">;
   } | null;
 };
 export type SlugProductTypeQuery = {
@@ -83,7 +83,7 @@ return {
           {
             "args": null,
             "kind": "FragmentSpread",
-            "name": "ProductTypePageBody_productType"
+            "name": "ProductTypeProductsSection_productType"
           }
         ],
         "storageKey": null
@@ -201,7 +201,7 @@ return {
             "args": (v4/*: any*/),
             "filters": null,
             "handle": "connection",
-            "key": "ProductTypePageBody_productType_products",
+            "key": "ProductTypeProductsSection_productType_products",
             "kind": "LinkedHandle",
             "name": "products"
           }
@@ -211,16 +211,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "d7b7426cce38b8a621e99466094ebd64",
+    "cacheID": "4a3b046128a318e36a333377c3b90b8f",
     "id": null,
     "metadata": {},
     "name": "SlugProductTypeQuery",
     "operationKind": "query",
-    "text": "query SlugProductTypeQuery(\n  $slug: String!\n) {\n  productTypeBySlug(slug: $slug) {\n    id\n    name\n    ...ProductTypePageBody_productType\n  }\n}\n\nfragment ProductTypePageBody_productType on ProductType {\n  products(first: 20) {\n    edges {\n      node {\n        id\n        name\n        description\n        price\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n"
+    "text": "query SlugProductTypeQuery(\n  $slug: String!\n) {\n  productTypeBySlug(slug: $slug) {\n    id\n    name\n    ...ProductTypeProductsSection_productType\n  }\n}\n\nfragment ProductTypeProductsSection_productType on ProductType {\n  products(first: 20) {\n    edges {\n      node {\n        id\n        name\n        description\n        price\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n"
   }
 };
 })();
 
-(node as any).hash = "9a419d54f3e5a952ba9ab476028015b0";
+(node as any).hash = "9871f2a3cbd22c520ec65635680c0cc3";
 
 export default node;

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<203de4c96e4dbcd8af4d37cfdf3188a4>>
+ * @generated SignedSource<<036c0eb89069c11185353e0b56ab3699>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,6 +9,7 @@
 // @ts-nocheck
 
 import { ConcreteRequest } from 'relay-runtime';
+import { FragmentRefs } from "relay-runtime";
 export type SectorSlugQuery$variables = {
   sectorSlug: string;
 };
@@ -16,15 +17,7 @@ export type SectorSlugQuery$data = {
   readonly sectorBySlug: {
     readonly id: string;
     readonly name: string;
-    readonly productTypes: {
-      readonly edges: ReadonlyArray<{
-        readonly node: {
-          readonly id: string;
-          readonly name: string;
-          readonly slug: string;
-        };
-      }>;
-    };
+    readonly " $fragmentSpreads": FragmentRefs<"SectorProductTypesSection_sector" | "SectorProductsSection_sector">;
   } | null;
 };
 export type SectorSlugQuery = {
@@ -40,89 +33,34 @@ var v0 = [
     "name": "sectorSlug"
   }
 ],
-v1 = {
+v1 = [
+  {
+    "kind": "Variable",
+    "name": "slug",
+    "variableName": "sectorSlug"
+  }
+],
+v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "id",
   "storageKey": null
 },
-v2 = {
+v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "name",
   "storageKey": null
 },
-v3 = [
-  {
-    "alias": null,
-    "args": [
-      {
-        "kind": "Variable",
-        "name": "slug",
-        "variableName": "sectorSlug"
-      }
-    ],
-    "concreteType": "Sector",
-    "kind": "LinkedField",
-    "name": "sectorBySlug",
-    "plural": false,
-    "selections": [
-      (v1/*: any*/),
-      (v2/*: any*/),
-      {
-        "alias": null,
-        "args": [
-          {
-            "kind": "Literal",
-            "name": "first",
-            "value": 50
-          }
-        ],
-        "concreteType": "ProductTypeConnection",
-        "kind": "LinkedField",
-        "name": "productTypes",
-        "plural": false,
-        "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "concreteType": "ProductTypeEdge",
-            "kind": "LinkedField",
-            "name": "edges",
-            "plural": true,
-            "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "concreteType": "ProductType",
-                "kind": "LinkedField",
-                "name": "node",
-                "plural": false,
-                "selections": [
-                  (v1/*: any*/),
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "slug",
-                    "storageKey": null
-                  },
-                  (v2/*: any*/)
-                ],
-                "storageKey": null
-              }
-            ],
-            "storageKey": null
-          }
-        ],
-        "storageKey": "productTypes(first:50)"
-      }
-    ],
-    "storageKey": null
-  }
-];
+v4 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "slug",
+  "storageKey": null
+};
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
@@ -131,7 +69,31 @@ return {
       "throwOnFieldError": true
     },
     "name": "SectorSlugQuery",
-    "selections": (v3/*: any*/),
+    "selections": [
+      {
+        "alias": null,
+        "args": (v1/*: any*/),
+        "concreteType": "Sector",
+        "kind": "LinkedField",
+        "name": "sectorBySlug",
+        "plural": false,
+        "selections": [
+          (v2/*: any*/),
+          (v3/*: any*/),
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "SectorProductTypesSection_sector"
+          },
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "SectorProductsSection_sector"
+          }
+        ],
+        "storageKey": null
+      }
+    ],
     "type": "Query",
     "abstractKey": null
   },
@@ -140,19 +102,124 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "SectorSlugQuery",
-    "selections": (v3/*: any*/)
+    "selections": [
+      {
+        "alias": null,
+        "args": (v1/*: any*/),
+        "concreteType": "Sector",
+        "kind": "LinkedField",
+        "name": "sectorBySlug",
+        "plural": false,
+        "selections": [
+          (v2/*: any*/),
+          (v3/*: any*/),
+          (v4/*: any*/),
+          {
+            "alias": null,
+            "args": [
+              {
+                "kind": "Literal",
+                "name": "first",
+                "value": 50
+              }
+            ],
+            "concreteType": "ProductTypeConnection",
+            "kind": "LinkedField",
+            "name": "productTypes",
+            "plural": false,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "ProductTypeEdge",
+                "kind": "LinkedField",
+                "name": "edges",
+                "plural": true,
+                "selections": [
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "ProductType",
+                    "kind": "LinkedField",
+                    "name": "node",
+                    "plural": false,
+                    "selections": [
+                      (v2/*: any*/),
+                      (v4/*: any*/),
+                      (v3/*: any*/)
+                    ],
+                    "storageKey": null
+                  }
+                ],
+                "storageKey": null
+              }
+            ],
+            "storageKey": "productTypes(first:50)"
+          },
+          {
+            "alias": null,
+            "args": [
+              {
+                "kind": "Literal",
+                "name": "first",
+                "value": 20
+              }
+            ],
+            "concreteType": "ProductConnection",
+            "kind": "LinkedField",
+            "name": "products",
+            "plural": false,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "ProductEdge",
+                "kind": "LinkedField",
+                "name": "edges",
+                "plural": true,
+                "selections": [
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "Product",
+                    "kind": "LinkedField",
+                    "name": "node",
+                    "plural": false,
+                    "selections": [
+                      (v2/*: any*/),
+                      (v3/*: any*/),
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "price",
+                        "storageKey": null
+                      }
+                    ],
+                    "storageKey": null
+                  }
+                ],
+                "storageKey": null
+              }
+            ],
+            "storageKey": "products(first:20)"
+          }
+        ],
+        "storageKey": null
+      }
+    ]
   },
   "params": {
-    "cacheID": "25ac271fe1728017d9a5955961c29eac",
+    "cacheID": "8b520c9e6e26ed07e2acc50bb4e8c045",
     "id": null,
     "metadata": {},
     "name": "SectorSlugQuery",
     "operationKind": "query",
-    "text": "query SectorSlugQuery(\n  $sectorSlug: String!\n) {\n  sectorBySlug(slug: $sectorSlug) {\n    id\n    name\n    productTypes(first: 50) {\n      edges {\n        node {\n          id\n          slug\n          name\n        }\n      }\n    }\n  }\n}\n"
+    "text": "query SectorSlugQuery(\n  $sectorSlug: String!\n) {\n  sectorBySlug(slug: $sectorSlug) {\n    id\n    name\n    ...SectorProductTypesSection_sector\n    ...SectorProductsSection_sector\n  }\n}\n\nfragment SectorProductTypesSection_sector on Sector {\n  slug\n  productTypes(first: 50) {\n    edges {\n      node {\n        id\n        slug\n        name\n      }\n    }\n  }\n}\n\nfragment SectorProductsSection_sector on Sector {\n  id\n  name\n  products(first: 20) {\n    edges {\n      node {\n        id\n        name\n        price\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "2defbf7123398abb0c0341c8d33edc9c";
+(node as any).hash = "4b5a01b1de5d22ebc353a6a57eee216a";
 
 export default node;

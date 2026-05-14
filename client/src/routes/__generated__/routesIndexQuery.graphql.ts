@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<5c2ed17eeb53e0622faf680dd2886b49>>
+ * @generated SignedSource<<9e63c8cfaa26b380b2a14d41a7339625>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,87 +9,17 @@
 // @ts-nocheck
 
 import { ConcreteRequest } from 'relay-runtime';
+import { FragmentRefs } from "relay-runtime";
 export type routesIndexQuery$variables = Record<PropertyKey, never>;
 export type routesIndexQuery$data = {
-  readonly sectors: {
-    readonly edges: ReadonlyArray<{
-      readonly node: {
-        readonly id: string;
-        readonly name: string;
-        readonly slug: string;
-      };
-    }>;
-  };
+  readonly " $fragmentSpreads": FragmentRefs<"RootSectorsSection_query">;
 };
 export type routesIndexQuery = {
   response: routesIndexQuery$data;
   variables: routesIndexQuery$variables;
 };
 
-const node: ConcreteRequest = (function(){
-var v0 = [
-  {
-    "alias": null,
-    "args": [
-      {
-        "kind": "Literal",
-        "name": "first",
-        "value": 50
-      }
-    ],
-    "concreteType": "SectorConnection",
-    "kind": "LinkedField",
-    "name": "sectors",
-    "plural": false,
-    "selections": [
-      {
-        "alias": null,
-        "args": null,
-        "concreteType": "SectorEdge",
-        "kind": "LinkedField",
-        "name": "edges",
-        "plural": true,
-        "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "concreteType": "Sector",
-            "kind": "LinkedField",
-            "name": "node",
-            "plural": false,
-            "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "id",
-                "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "slug",
-                "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "name",
-                "storageKey": null
-              }
-            ],
-            "storageKey": null
-          }
-        ],
-        "storageKey": null
-      }
-    ],
-    "storageKey": "sectors(first:50)"
-  }
-];
-return {
+const node: ConcreteRequest = {
   "fragment": {
     "argumentDefinitions": [],
     "kind": "Fragment",
@@ -97,7 +27,13 @@ return {
       "throwOnFieldError": true
     },
     "name": "routesIndexQuery",
-    "selections": (v0/*: any*/),
+    "selections": [
+      {
+        "args": null,
+        "kind": "FragmentSpread",
+        "name": "RootSectorsSection_query"
+      }
+    ],
     "type": "Query",
     "abstractKey": null
   },
@@ -106,19 +42,79 @@ return {
     "argumentDefinitions": [],
     "kind": "Operation",
     "name": "routesIndexQuery",
-    "selections": (v0/*: any*/)
+    "selections": [
+      {
+        "alias": null,
+        "args": [
+          {
+            "kind": "Literal",
+            "name": "first",
+            "value": 50
+          }
+        ],
+        "concreteType": "SectorConnection",
+        "kind": "LinkedField",
+        "name": "sectors",
+        "plural": false,
+        "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "SectorEdge",
+            "kind": "LinkedField",
+            "name": "edges",
+            "plural": true,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "Sector",
+                "kind": "LinkedField",
+                "name": "node",
+                "plural": false,
+                "selections": [
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "id",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "slug",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "name",
+                    "storageKey": null
+                  }
+                ],
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
+          }
+        ],
+        "storageKey": "sectors(first:50)"
+      }
+    ]
   },
   "params": {
-    "cacheID": "8b27068178e2d9a2e866ebac0d3a9bd6",
+    "cacheID": "612247d1037d06346392a764c824b063",
     "id": null,
     "metadata": {},
     "name": "routesIndexQuery",
     "operationKind": "query",
-    "text": "query routesIndexQuery {\n  sectors(first: 50) {\n    edges {\n      node {\n        id\n        slug\n        name\n      }\n    }\n  }\n}\n"
+    "text": "query routesIndexQuery {\n  ...RootSectorsSection_query\n}\n\nfragment RootSectorsSection_query on Query {\n  sectors(first: 50) {\n    edges {\n      node {\n        id\n        slug\n        name\n      }\n    }\n  }\n}\n"
   }
 };
-})();
 
-(node as any).hash = "107ee492bad46ef4c745bb6fc22a7c74";
+(node as any).hash = "77a37b4728c5f7df671c0672aef66209";
 
 export default node;

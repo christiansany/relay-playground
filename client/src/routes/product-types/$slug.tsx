@@ -1,8 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { graphql, useLazyLoadQuery } from "react-relay";
-import { ProductTypePageBody } from "../../components/ProductTypePageBody.js";
-import type { SlugProductTypeQuery as ProductTypeBySlugQuery } from "./__generated__/SlugProductTypeQuery.graphql.js";
 import { ErrorBoundary } from "../../components/ErrorBoundary.js";
+import { ProductTypeProductsSection } from "../../components/ProductTypeProductsSection.js";
+import type { SlugProductTypeQuery as ProductTypeBySlugQuery } from "./__generated__/SlugProductTypeQuery.graphql.js";
 
 export const Route = createFileRoute("/product-types/$slug")({
   component: ProductTypePage,
@@ -16,7 +16,7 @@ function ProductTypePage() {
         productTypeBySlug(slug: $slug) {
           id
           name
-          ...ProductTypePageBody_productType
+          ...ProductTypeProductsSection_productType
         }
       }
     `,
@@ -38,9 +38,8 @@ function ProductTypePage() {
         <Link to="/">← Sectors</Link>
       </p>
       <h1>{data.productTypeBySlug.name}</h1>
-
-      <ErrorBoundary fallback={<p>Error in ProductTypePageBody</p>}>
-        <ProductTypePageBody productTypeRef={data.productTypeBySlug} />
+      <ErrorBoundary fallback={<p>Error in ProductTypeProductsSection</p>}>
+        <ProductTypeProductsSection productTypeRef={data.productTypeBySlug} />
       </ErrorBoundary>
     </main>
   );

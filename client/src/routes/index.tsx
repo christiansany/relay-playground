@@ -1,5 +1,7 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { graphql, useLazyLoadQuery } from "react-relay";
+import { ErrorBoundary } from "../components/ErrorBoundary.js";
+import { RootSectorsSection } from "../components/RootSectorsSection.js";
 import type { routesIndexQuery as IndexQueryType } from "./__generated__/routesIndexQuery.graphql.js";
 
 export const Route = createFileRoute("/")({
@@ -10,15 +12,7 @@ function IndexPage() {
   const data = useLazyLoadQuery<IndexQueryType>(
     graphql`
       query routesIndexQuery @throwOnFieldError {
-        sectors(first: 50) {
-          edges {
-            node {
-              id
-              slug
-              name
-            }
-          }
-        }
+        ...RootSectorsSection_query
       }
     `,
     {},
@@ -26,16 +20,10 @@ function IndexPage() {
 
   return (
     <main>
-      <h1>Sectors</h1>
-      <ul>
-        {data.sectors.edges.map((edge) => (
-          <li key={edge.node.id}>
-            <Link to="/sectors/$sectorSlug" params={{ sectorSlug: edge.node.slug }}>
-              {edge.node.name}
-            </Link>
-          </li>
-        ))}
-      </ul>
+      <h1>Home</h1>
+      <ErrorBoundary fallback={<p>Error in RootSectorsSection</p>}>
+        <RootSectorsSection queryRef={data} />
+      </ErrorBoundary>
     </main>
   );
 }

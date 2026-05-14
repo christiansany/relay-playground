@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b34c6bce0c1199bcbe7c1dda06dfcd99>>
+ * @generated SignedSource<<99dd59e2e1de2f6135da873bfc5d8fa6>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,7 +10,7 @@
 
 import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ProductTypePageBody_productType$data = {
+export type ProductTypeProductsSection_productType$data = {
   readonly id: string;
   readonly products: {
     readonly edges: ReadonlyArray<{
@@ -22,14 +22,14 @@ export type ProductTypePageBody_productType$data = {
       };
     }>;
   };
-  readonly " $fragmentType": "ProductTypePageBody_productType";
+  readonly " $fragmentType": "ProductTypeProductsSection_productType";
 };
-export type ProductTypePageBody_productType$key = {
-  readonly " $data"?: ProductTypePageBody_productType$data;
-  readonly " $fragmentSpreads": FragmentRefs<"ProductTypePageBody_productType">;
+export type ProductTypeProductsSection_productType$key = {
+  readonly " $data"?: ProductTypeProductsSection_productType$data;
+  readonly " $fragmentSpreads": FragmentRefs<"ProductTypeProductsSection_productType">;
 };
 
-import ProductTypePageBodyPaginationQuery_graphql from './ProductTypePageBodyPaginationQuery.graphql';
+import ProductTypeProductsSectionPaginationQuery_graphql from './ProductTypeProductsSectionPaginationQuery.graphql';
 
 const node: ReaderFragment = (function(){
 var v0 = [
@@ -78,21 +78,21 @@ return {
       "fragmentPathInResult": [
         "node"
       ],
-      "operation": ProductTypePageBodyPaginationQuery_graphql,
+      "operation": ProductTypeProductsSectionPaginationQuery_graphql,
       "identifierInfo": {
         "identifierField": "id",
         "identifierQueryVariableName": "id"
       }
     }
   },
-  "name": "ProductTypePageBody_productType",
+  "name": "ProductTypeProductsSection_productType",
   "selections": [
     {
       "alias": "products",
       "args": null,
       "concreteType": "ProductConnection",
       "kind": "LinkedField",
-      "name": "__ProductTypePageBody_productType_products_connection",
+      "name": "__ProductTypeProductsSection_productType_products_connection",
       "plural": false,
       "selections": [
         {
@@ -188,6 +188,6 @@ return {
 };
 })();
 
-(node as any).hash = "ddd07bb0a5be31fe6a818930d9868f25";
+(node as any).hash = "b24281b5301b7e3c46618afac8fda46a";
 
 export default node;

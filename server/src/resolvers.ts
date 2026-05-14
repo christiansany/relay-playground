@@ -24,6 +24,11 @@ function productTypesForSector(sectorId: string): ProductTypeRecord[] {
   return productTypes.filter((pt) => linked.has(pt.id));
 }
 
+function productsForSector(sectorId: string): ProductRecord[] {
+  const productTypeIds = new Set(productTypesForSector(sectorId).map((pt) => pt.id));
+  return products.filter((p) => productTypeIds.has(p.productTypeId));
+}
+
 function sectorsForProductType(productTypeId: string): SectorRecord[] {
   const linked = new Set(
     sectorProductTypeLinks.filter((l) => l.productTypeId === productTypeId).map((l) => l.sectorId),
@@ -61,6 +66,8 @@ export const resolvers = {
     id: (s: SectorRecord) => toGlobalId("Sector", s.id),
     productTypes: (s: SectorRecord, args: ConnectionArgs) =>
       connectionFromArray(productTypesForSector(s.id), args),
+    products: (s: SectorRecord, args: ConnectionArgs) =>
+      connectionFromArray(productsForSector(s.id), args),
   },
 
   ProductType: {

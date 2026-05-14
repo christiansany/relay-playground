@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<7eafe12f2d5ffb7d15fd1e282341fcd8>>
+ * @generated SignedSource<<60a4565ff30c9011b8400f75d44fa117>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -18,7 +18,7 @@ export type ProductTypeSlugQuery$data = {
   readonly productTypeBySlug: {
     readonly id: string;
     readonly name: string;
-    readonly " $fragmentSpreads": FragmentRefs<"ProductTypePageBody_productType">;
+    readonly " $fragmentSpreads": FragmentRefs<"ProductTypeProductsSection_productType">;
   } | null;
   readonly sectorBySlug: {
     readonly id: string;
@@ -122,7 +122,7 @@ return {
           {
             "args": null,
             "kind": "FragmentSpread",
-            "name": "ProductTypePageBody_productType"
+            "name": "ProductTypeProductsSection_productType"
           }
         ],
         "storageKey": null
@@ -244,7 +244,7 @@ return {
             "args": (v6/*: any*/),
             "filters": null,
             "handle": "connection",
-            "key": "ProductTypePageBody_productType_products",
+            "key": "ProductTypeProductsSection_productType_products",
             "kind": "LinkedHandle",
             "name": "products"
           }
@@ -254,16 +254,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "41ccda14c1b942f5c299bdb5b1d51ee3",
+    "cacheID": "94233d296b4261a1a837fa628c788733",
     "id": null,
     "metadata": {},
     "name": "ProductTypeSlugQuery",
     "operationKind": "query",
-    "text": "query ProductTypeSlugQuery(\n  $sectorSlug: String!\n  $productTypeSlug: String!\n) {\n  sectorBySlug(slug: $sectorSlug) {\n    id\n    name\n    slug\n  }\n  productTypeBySlug(slug: $productTypeSlug) {\n    id\n    name\n    ...ProductTypePageBody_productType\n  }\n}\n\nfragment ProductTypePageBody_productType on ProductType {\n  products(first: 20) {\n    edges {\n      node {\n        id\n        name\n        description\n        price\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n"
+    "text": "query ProductTypeSlugQuery(\n  $sectorSlug: String!\n  $productTypeSlug: String!\n) {\n  sectorBySlug(slug: $sectorSlug) {\n    id\n    name\n    slug\n  }\n  productTypeBySlug(slug: $productTypeSlug) {\n    id\n    name\n    ...ProductTypeProductsSection_productType\n  }\n}\n\nfragment ProductTypeProductsSection_productType on ProductType {\n  products(first: 20) {\n    edges {\n      node {\n        id\n        name\n        description\n        price\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n"
   }
 };
 })();
 
-(node as any).hash = "d3d53ad7691f86d8836b808448232b73";
+(node as any).hash = "76294aeb9b1ca5fe44f5e4ce5bcbe1fd";
 
 export default node;

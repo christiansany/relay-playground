@@ -1,23 +1,23 @@
 import { graphql, usePaginationFragment } from "react-relay";
-import type { ProductTypePageBody_productType$key } from "./__generated__/ProductTypePageBody_productType.graphql.js";
-import type { ProductTypePageBodyPaginationQuery } from "./__generated__/ProductTypePageBodyPaginationQuery.graphql.js";
+import type { ProductTypeProductsSection_productType$key } from "./__generated__/ProductTypeProductsSection_productType.graphql.js";
+import type { ProductTypeProductsSectionPaginationQuery } from "./__generated__/ProductTypeProductsSectionPaginationQuery.graphql.js";
 
 type Props = {
-  productTypeRef: ProductTypePageBody_productType$key;
+  productTypeRef: ProductTypeProductsSection_productType$key;
 };
 
-export function ProductTypePageBody({ productTypeRef }: Props) {
+export function ProductTypeProductsSection({ productTypeRef }: Props) {
   const { data, loadNext, hasNext, isLoadingNext } = usePaginationFragment<
-    ProductTypePageBodyPaginationQuery,
-    ProductTypePageBody_productType$key
+    ProductTypeProductsSectionPaginationQuery,
+    ProductTypeProductsSection_productType$key
   >(
     graphql`
-      fragment ProductTypePageBody_productType on ProductType
+      fragment ProductTypeProductsSection_productType on ProductType
       @throwOnFieldError
       @argumentDefinitions(first: { type: "Int", defaultValue: 20 }, after: { type: "String" })
-      @refetchable(queryName: "ProductTypePageBodyPaginationQuery") {
+      @refetchable(queryName: "ProductTypeProductsSectionPaginationQuery") {
         products(first: $first, after: $after)
-          @connection(key: "ProductTypePageBody_productType_products") {
+          @connection(key: "ProductTypeProductsSection_productType_products") {
           edges {
             node {
               id
@@ -34,6 +34,7 @@ export function ProductTypePageBody({ productTypeRef }: Props) {
 
   return (
     <section>
+      <h2>Products</h2>
       <ul>
         {data.products.edges.map((edge) => (
           <li key={edge.node.id} style={{ marginBlock: "0.5rem" }}>
