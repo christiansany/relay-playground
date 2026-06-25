@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { graphql, useLazyLoadQuery } from "react-relay";
 import { ErrorBoundary } from "../components/ErrorBoundary.js";
 import { RootSectorsSection } from "../components/RootSectorsSection.js";
@@ -21,6 +21,9 @@ function IndexPage() {
   return (
     <main>
       <h1>Home</h1>
+      <p>
+        <Link to="/nested-catch">→ Nested @catch repro</Link>
+      </p>
       <ErrorBoundary fallback={<p>Error in RootSectorsSection</p>}>
         <RootSectorsSection queryRef={data} />
       </ErrorBoundary>
