@@ -13,7 +13,7 @@ export function ProductTypeProductsSection({ productTypeRef }: Props) {
   >(
     graphql`
       fragment ProductTypeProductsSection_productType on ProductType
-      @throwOnFieldError
+      @catch
       @argumentDefinitions(first: { type: "Int", defaultValue: 20 }, after: { type: "String" })
       @refetchable(queryName: "ProductTypeProductsSectionPaginationQuery") {
         products(first: $first, after: $after)
@@ -35,13 +35,17 @@ export function ProductTypeProductsSection({ productTypeRef }: Props) {
   return (
     <section>
       <h2>Products</h2>
+      <p>
+        Debug: hasNext -&gt; {hasNext.toString()}, isLoadingNext -&gt; {isLoadingNext.toString()}
+      </p>
       <ul>
-        {data.products.edges.map((edge) => (
-          <li key={edge.node.id} style={{ marginBlock: "0.5rem" }}>
-            <strong>{edge.node.name}</strong> — {edge.node.description}{" "}
-            <span style={{ color: "#888" }}>(CHF {edge.node.price.toFixed(2)})</span>
-          </li>
-        ))}
+        {data.ok &&
+          data.value.products.edges.map((edge) => (
+            <li key={edge.node.id} style={{ marginBlock: "0.5rem" }}>
+              <strong>{edge.node.name}</strong> — {edge.node.description}{" "}
+              <span style={{ color: "#888" }}>(CHF {edge.node.price.toFixed(2)})</span>
+            </li>
+          ))}
       </ul>
       <button
         type="button"

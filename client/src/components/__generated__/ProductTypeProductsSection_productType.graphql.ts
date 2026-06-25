@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<293937a7e5ce5a22eabb0613642e2968>>
+ * @generated SignedSource<<9904deeb6e21e3e5f00ea2ca4160b2ed>>
  * @lightSyntaxTransform
  */
 
@@ -8,8 +8,8 @@
 // @ts-nocheck
 
 import { ReaderFragment } from 'relay-runtime';
-import { FragmentRefs } from "relay-runtime";
-export type ProductTypeProductsSection_productType$data = {
+import { FragmentRefs, Result } from "relay-runtime";
+export type ProductTypeProductsSection_productType$data = Result<{
   readonly id: string;
   readonly products: {
     readonly edges: ReadonlyArray<{
@@ -22,7 +22,7 @@ export type ProductTypeProductsSection_productType$data = {
     }>;
   };
   readonly " $fragmentType": "ProductTypeProductsSection_productType";
-};
+}, unknown>;
 export type ProductTypeProductsSection_productType$key = {
   readonly " $data"?: ProductTypeProductsSection_productType$data;
   readonly " $fragmentSpreads": FragmentRefs<"ProductTypeProductsSection_productType">;
@@ -56,6 +56,7 @@ return {
   ],
   "kind": "Fragment",
   "metadata": {
+    "catchTo": "RESULT",
     "connection": [
       {
         "count": "first",
@@ -81,8 +82,7 @@ return {
         "identifierField": "id",
         "identifierQueryVariableName": "id"
       }
-    },
-    "throwOnFieldError": true
+    }
   },
   "name": "ProductTypeProductsSection_productType",
   "selections": [
@@ -187,6 +187,6 @@ return {
 };
 })();
 
-(node as any).hash = "b24281b5301b7e3c46618afac8fda46a";
+(node as any).hash = "4ad05010498ef37eca2450b27552d944";
 
 export default node;
