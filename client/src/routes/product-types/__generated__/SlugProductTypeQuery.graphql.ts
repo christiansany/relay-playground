@@ -1,7 +1,6 @@
 /**
- * @generated SignedSource<<e217f0fb06f0a7e7e2225cf7f50e94de>>
+ * @generated SignedSource<<a53abf738772c5c74a32a2496c2e430a>>
  * @lightSyntaxTransform
- * @nogrep
  */
 
 /* tslint:disable */
@@ -63,7 +62,7 @@ v4 = [
 ];
 return {
   "fragment": {
-    "argumentDefinitions": (v0/*: any*/),
+    "argumentDefinitions": (v0/*:: as any*/),
     "kind": "Fragment",
     "metadata": {
       "throwOnFieldError": true
@@ -72,14 +71,14 @@ return {
     "selections": [
       {
         "alias": null,
-        "args": (v1/*: any*/),
+        "args": (v1/*:: as any*/),
         "concreteType": "ProductType",
         "kind": "LinkedField",
         "name": "productTypeBySlug",
         "plural": false,
         "selections": [
-          (v2/*: any*/),
-          (v3/*: any*/),
+          (v2/*:: as any*/),
+          (v3/*:: as any*/),
           {
             "args": null,
             "kind": "FragmentSpread",
@@ -94,23 +93,23 @@ return {
   },
   "kind": "Request",
   "operation": {
-    "argumentDefinitions": (v0/*: any*/),
+    "argumentDefinitions": (v0/*:: as any*/),
     "kind": "Operation",
     "name": "SlugProductTypeQuery",
     "selections": [
       {
         "alias": null,
-        "args": (v1/*: any*/),
+        "args": (v1/*:: as any*/),
         "concreteType": "ProductType",
         "kind": "LinkedField",
         "name": "productTypeBySlug",
         "plural": false,
         "selections": [
-          (v2/*: any*/),
-          (v3/*: any*/),
+          (v2/*:: as any*/),
+          (v3/*:: as any*/),
           {
             "alias": null,
-            "args": (v4/*: any*/),
+            "args": (v4/*:: as any*/),
             "concreteType": "ProductConnection",
             "kind": "LinkedField",
             "name": "products",
@@ -132,8 +131,8 @@ return {
                     "name": "node",
                     "plural": false,
                     "selections": [
-                      (v2/*: any*/),
-                      (v3/*: any*/),
+                      (v2/*:: as any*/),
+                      (v3/*:: as any*/),
                       {
                         "alias": null,
                         "args": null,
@@ -198,7 +197,7 @@ return {
           },
           {
             "alias": null,
-            "args": (v4/*: any*/),
+            "args": (v4/*:: as any*/),
             "filters": null,
             "handle": "connection",
             "key": "ProductTypeProductsSection_productType_products",

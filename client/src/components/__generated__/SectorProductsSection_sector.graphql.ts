@@ -1,7 +1,6 @@
 /**
- * @generated SignedSource<<4f773be4248bfc0a10f1d16328b84d63>>
+ * @generated SignedSource<<43172a22ef5c494071be10bb87a33278>>
  * @lightSyntaxTransform
- * @nogrep
  */
 
 /* tslint:disable */
@@ -52,8 +51,8 @@ return {
   },
   "name": "SectorProductsSection_sector",
   "selections": [
-    (v0/*: any*/),
-    (v1/*: any*/),
+    (v0/*:: as any*/),
+    (v1/*:: as any*/),
     {
       "kind": "CatchField",
       "field": {
@@ -86,8 +85,8 @@ return {
                 "name": "node",
                 "plural": false,
                 "selections": [
-                  (v0/*: any*/),
-                  (v1/*: any*/),
+                  (v0/*:: as any*/),
+                  (v1/*:: as any*/),
                   {
                     "alias": null,
                     "args": null,

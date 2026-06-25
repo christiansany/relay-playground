@@ -1,7 +1,6 @@
 /**
- * @generated SignedSource<<99dd59e2e1de2f6135da873bfc5d8fa6>>
+ * @generated SignedSource<<293937a7e5ce5a22eabb0613642e2968>>
  * @lightSyntaxTransform
- * @nogrep
  */
 
 /* tslint:disable */
@@ -62,10 +61,9 @@ return {
         "count": "first",
         "cursor": "after",
         "direction": "forward",
-        "path": (v0/*: any*/)
+        "path": (v0/*:: as any*/)
       }
     ],
-    "throwOnFieldError": true,
     "refetch": {
       "connection": {
         "forward": {
@@ -73,7 +71,7 @@ return {
           "cursor": "after"
         },
         "backward": null,
-        "path": (v0/*: any*/)
+        "path": (v0/*:: as any*/)
       },
       "fragmentPathInResult": [
         "node"
@@ -83,7 +81,8 @@ return {
         "identifierField": "id",
         "identifierQueryVariableName": "id"
       }
-    }
+    },
+    "throwOnFieldError": true
   },
   "name": "ProductTypeProductsSection_productType",
   "selections": [
@@ -111,7 +110,7 @@ return {
               "name": "node",
               "plural": false,
               "selections": [
-                (v1/*: any*/),
+                (v1/*:: as any*/),
                 {
                   "alias": null,
                   "args": null,
@@ -181,7 +180,7 @@ return {
       ],
       "storageKey": null
     },
-    (v1/*: any*/)
+    (v1/*:: as any*/)
   ],
   "type": "ProductType",
   "abstractKey": null

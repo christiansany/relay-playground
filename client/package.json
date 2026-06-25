@@ -15,8 +15,8 @@
     "@tanstack/router-core": "1.169.2",
     "react": "19.2.6",
     "react-dom": "19.2.6",
-    "react-relay": "20.1.1",
-    "relay-runtime": "20.1.1"
+    "react-relay": "21.0.1",
+    "relay-runtime": "21.0.1"
   },
   "devDependencies": {
     "@tanstack/router-plugin": "1.167.35",
@@ -25,9 +25,9 @@
     "@types/react-relay": "18.2.1",
     "@types/relay-runtime": "20.1.1",
     "@vitejs/plugin-react": "5.2.0",
-    "babel-plugin-relay": "20.1.1",
+    "babel-plugin-relay": "21.0.1",
     "graphql": "16.14.0",
-    "relay-compiler": "20.1.1",
+    "relay-compiler": "21.0.1",
     "typescript": "6.0.3",
     "vite": "8.0.13"
   }

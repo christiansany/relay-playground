@@ -1,7 +1,6 @@
 /**
- * @generated SignedSource<<f1219c479f96d918537f0f23b4da83f9>>
+ * @generated SignedSource<<07d31e354625c6723a72f07e80059a5a>>
  * @lightSyntaxTransform
- * @nogrep
  */
 
 /* tslint:disable */
@@ -44,7 +43,7 @@ return {
   },
   "name": "SectorProductTypesSection_sector",
   "selections": [
-    (v0/*: any*/),
+    (v0/*:: as any*/),
     {
       "alias": null,
       "args": [
@@ -82,7 +81,7 @@ return {
                   "name": "id",
                   "storageKey": null
                 },
-                (v0/*: any*/),
+                (v0/*:: as any*/),
                 {
                   "alias": null,
                   "args": null,
