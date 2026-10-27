@@ -14,6 +14,9 @@ function RootComponent() {
         <Link to="/" style={{ fontWeight: 600, fontSize: "1.1rem", textDecoration: "none" }}>
           Relay Playground
         </Link>
+        <Link to="/lab" style={{ marginLeft: "1.5rem" }}>
+          Error lab
+        </Link>
       </header>
       <ErrorBoundary fallback={<p>Something went wrong.</p>}>
         <Suspense fallback={<p>Loading…</p>}>

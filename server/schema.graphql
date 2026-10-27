@@ -16,8 +16,20 @@ operation AST and throws when resolving the tagged field. The error
 lands in `errors[]` at the field's path. Pair with `@semanticNonNull`
 (or `@throwOnFieldError` on the operation) so the field nulls in place
 rather than bubbling up.
+
+- `if`: only error when true. Accepts a variable, so one operation can be
+  fetched cleanly and with an error (directive arguments are not part of
+  Relay storage keys, so both responses write to the same records).
+- `onlyForIds`: only error when the parent object's global id is in the
+  list. On an edge, the edge's node id is used. Lets you break one row of
+  a list instead of every row.
+- `message`: overrides the error message.
+
+How the error then travels through the response is decided by the
+request's `onError` (`PROPAGATE` | `NULL` | `HALT`), see
+`server/src/errorBehavior.ts`.
 """
-directive @simulateError on FIELD
+directive @simulateError(if: Boolean = true, onlyForIds: [ID!], message: String) on FIELD
 
 interface Node {
   id: ID!
@@ -95,4 +107,53 @@ type SectorConnection {
 type SectorEdge {
   cursor: String @semanticNonNull
   node: Sector @semanticNonNull
+}
+
+type Mutation {
+  renameProduct(input: RenameProductInput!): RenameProductPayload
+  createProduct(input: CreateProductInput!): CreateProductPayload
+  deleteProduct(input: DeleteProductInput!): DeleteProductPayload
+  """
+  Playground-only: restores the mock data (names, created/deleted products,
+  list order) to its initial state.
+  """
+  labReset: Boolean @semanticNonNull
+  """
+  Playground-only: changes the order in which `Query.sectors` returns its
+  items, without changing any ids. Used to show how Relay reuses records by
+  list position when an item arrives without an id.
+  """
+  labSetSectorOrder(order: LabListOrder!): Boolean @semanticNonNull
+}
+
+enum LabListOrder {
+  DEFAULT
+  REVERSED
+}
+
+input RenameProductInput {
+  id: ID!
+  name: String!
+}
+
+type RenameProductPayload {
+  product: Product @semanticNonNull
+}
+
+input CreateProductInput {
+  productTypeId: ID!
+  name: String!
+  price: Float!
+}
+
+type CreateProductPayload {
+  productEdge: ProductEdge @semanticNonNull
+}
+
+input DeleteProductInput {
+  id: ID!
+}
+
+type DeleteProductPayload {
+  deletedProductId: ID!
 }

@@ -140,3 +140,35 @@ function generateProducts(): ProductRecord[] {
 }
 
 export const products: ProductRecord[] = generateProducts();
+
+// Mutations edit the arrays above in place. Keep a pristine copy so the
+// playground (and the test suite, which runs the schema in-process) can
+// reset to a known state.
+const initialSectors = sectors.map((s) => ({ ...s }));
+const initialProductTypes = productTypes.map((pt) => ({ ...pt }));
+const initialProducts = products.map((p) => ({ ...p }));
+
+let createdProductCounter = 0;
+let sectorOrder: "DEFAULT" | "REVERSED" = "DEFAULT";
+
+export function setSectorOrder(order: "DEFAULT" | "REVERSED"): void {
+  sectorOrder = order;
+}
+
+/** `sectors` in the order `Query.sectors` currently returns them. */
+export function orderedSectors(): SectorRecord[] {
+  return sectorOrder === "REVERSED" ? [...sectors].reverse() : sectors;
+}
+
+export function nextCreatedProductId(): string {
+  createdProductCounter += 1;
+  return `p_new_${createdProductCounter}`;
+}
+
+export function resetMockData(): void {
+  sectors.splice(0, sectors.length, ...initialSectors.map((s) => ({ ...s })));
+  productTypes.splice(0, productTypes.length, ...initialProductTypes.map((pt) => ({ ...pt })));
+  products.splice(0, products.length, ...initialProducts.map((p) => ({ ...p })));
+  createdProductCounter = 0;
+  sectorOrder = "DEFAULT";
+}

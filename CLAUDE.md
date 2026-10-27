@@ -91,6 +91,18 @@ For lists, the directive errors on each array element with the index in the path
 
 The directive is FIELD-only — placing it on a schema definition, fragment spread, or inline fragment is a validation error. To make every read of a schema field always error, write a custom resolver instead.
 
+Arguments: `if: Boolean = true` (accepts a variable, so one operation can fetch cleanly or with the error — directive args aren't part of Relay storage keys), `onlyForIds: [ID!]` (only error for objects with these global ids; on an edge the node's id is used; `[]` means never), `message: String`.
+
+## `onError` (error behaviors)
+
+The server emulates the `onError` request property from [graphql-spec#1163](https://github.com/graphql/graphql-spec/pull/1163) (`PROPAGATE` default, `NULL`, `HALT`) and adds `pathNonNull` to every error. See `server/src/errorBehavior.ts`. It reads `onError` from the request body, or from the `x-graphql-on-error` header for Apollo Sandbox. The main app's `RelayEnvironment` sends nothing, so it gets `PROPAGATE`. The `/lab` route and the test suite send it explicitly.
+
+Research notes, findings and recommendations for errors on `id`: `docs/error-behaviors-and-relay-ids.md`.
+
+## Tests
+
+`yarn workspace client test` runs vitest. Tests in `client/src/lab/__tests__/` execute the real server schema in-process (`harness.ts`), so `@simulateError`, `onError` and the mutations behave as in `yarn dev`. They are characterization tests: they assert what Relay _does_, including the bad parts. `yarn workspace client test:upstream:link [path/to/relay]` + `test:upstream` run the same suite against a local facebook/relay build.
+
 ### Pair with `@semanticNonNull` + `@throwOnFieldError`
 
 `@semanticNonNull` (already on every nullable-but-required field in this repo) tells the client to keep the field as null with the error in `errors[]` instead of bubbling. `@throwOnFieldError` (on every operation/fragment in this repo) makes Relay throw at the read site so the `<ErrorBoundary>` catches it.

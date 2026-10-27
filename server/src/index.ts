@@ -1,8 +1,9 @@
 import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
-import { schema } from "./schema.js";
+import { errorBehaviorPlugin } from "./errorBehaviorPlugin.js";
+import { schema, schemas } from "./schema.js";
 
-const server = new ApolloServer({ schema });
+const server = new ApolloServer({ schema, plugins: [errorBehaviorPlugin(schemas)] });
 
 const { url } = await startStandaloneServer(server, {
   listen: { port: 4000 },
