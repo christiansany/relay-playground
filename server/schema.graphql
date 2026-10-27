@@ -40,6 +40,9 @@ type Query {
   productTypes(first: Int, after: String, last: Int, before: String): ProductTypeConnection
     @semanticNonNull
   sectors(first: Int, after: String, last: Int, before: String): SectorConnection @semanticNonNull
+  "3D demo, see docs/data-driven-dependencies.md"
+  productPage(slug: String!): ProductPage
+  productPages: [ProductPage!]!
 }
 
 type Sector implements Node {
@@ -95,4 +98,137 @@ type SectorConnection {
 type SectorEdge {
   cursor: String @semanticNonNull
   node: Sector @semanticNonNull
+}
+
+# ---------------------------------------------------------------------------
+# Data-Driven Dependencies (3D) demo
+#
+# See docs/data-driven-dependencies.md. A product page is assembled from a
+# heterogeneous list of content blocks, an energy label that is usually null,
+# and a price whose rendering strategy the server negotiates with the client.
+# ---------------------------------------------------------------------------
+
+"""
+Opaque reference to a JS module. Only used by "Server 3D": the Relay compiler
+asks for `js(module: "...")` on every concrete type spread with `@module` and
+the server answers with the reference the client should load. The client-side
+"compiler 3D" mode never selects this field.
+"""
+scalar JSDependency
+
+type ProductPage {
+  id: ID!
+  slug: String!
+  title: String!
+  blocks: [ProductPageBlock!]!
+  "Usually null: only a few products carry an energy label."
+  energyLabel: EnergyLabel
+  """
+  Rendering strategy for the price. The client lists the strategies it can
+  render in `supported` (Relay fills it in from the `@module` spreads under
+  `@match`), and the server picks the best strategy from that list.
+  """
+  priceDisplay(supported: [String!]): PriceDisplay
+}
+
+union ProductPageBlock =
+  | TextBlock
+  | ImageGalleryBlock
+  | VideoBlock
+  | SpecsBlock
+  | ReviewHighlightBlock
+  | CarouselBlock
+  | ComparisonBlock
+
+type TextBlock {
+  id: ID!
+  heading: String!
+  body: String!
+  js(module: String!, id: String): JSDependency
+}
+
+type Image {
+  url: String!
+  alt: String!
+}
+
+type ImageGalleryBlock {
+  id: ID!
+  images: [Image!]!
+  js(module: String!, id: String): JSDependency
+}
+
+type VideoBlock {
+  id: ID!
+  title: String!
+  videoUrl: String!
+  durationSeconds: Int!
+  js(module: String!, id: String): JSDependency
+}
+
+type Spec {
+  label: String!
+  value: String!
+}
+
+type SpecsBlock {
+  id: ID!
+  specs: [Spec!]!
+  js(module: String!, id: String): JSDependency
+}
+
+type ReviewHighlightBlock {
+  id: ID!
+  rating: Float!
+  quote: String!
+  author: String!
+  js(module: String!, id: String): JSDependency
+}
+
+"A block that itself contains blocks: used to demonstrate nested 3D."
+type CarouselBlock {
+  id: ID!
+  title: String!
+  items: [ProductPageBlock!]!
+  js(module: String!, id: String): JSDependency
+}
+
+"""
+A block type that no client fragment spreads with @module. It shows what
+happens when the server returns a union member the client doesn't know yet.
+"""
+type ComparisonBlock {
+  id: ID!
+  competitors: [String!]!
+  js(module: String!, id: String): JSDependency
+}
+
+type EnergyLabel {
+  id: ID!
+  grade: String!
+  kwhPerYear: Int!
+  js(module: String!, id: String): JSDependency
+}
+
+union PriceDisplay = RegularPrice | SalePrice | BundlePrice
+
+type RegularPrice {
+  id: ID!
+  amount: Float!
+  js(module: String!, id: String): JSDependency
+}
+
+type SalePrice {
+  id: ID!
+  amount: Float!
+  originalAmount: Float!
+  endsAt: String!
+  js(module: String!, id: String): JSDependency
+}
+
+type BundlePrice {
+  id: ID!
+  amount: Float!
+  bundleItems: [String!]!
+  js(module: String!, id: String): JSDependency
 }

@@ -129,3 +129,14 @@ query Foo @throwOnFieldError {
 ```
 
 `@throwOnFieldError` is stripped from the network text by the relay-compiler (it's a client-runtime directive); only `@simulateError` actually goes over the wire. When the server-emitted error lands in the response's `errors` array, Relay throws on read at the hook, the boundary catches it, and remounting (e.g. navigating to another route and back) re-fetches.
+
+## Data-Driven Dependencies (`@module` / `@match`)
+
+Full write-up: `docs/data-driven-dependencies.md`. Rules for code under `client/src/three-d/`:
+
+- Two Relay projects (`client/relay.config.js`): files in `client/src/three-d/server3d/` belong to `server3d` (Server 3D + Client 3D), everything else to `main` (compiler 3D). A fragment can only be spread inside its own project.
+- Render `@module` selections with `Match3D` (`runtime/Match3D.tsx`), never `MatchContainer` directly: `react-relay` doesn't export it, and the `loader` has to go through the shared module cache.
+- Environments that touch `@module` must pass `operationLoader` to **both** `Environment` and `Store` (`createThreeDEnvironment` does).
+- `@module` names are paths relative to the source file (`../blocks/TextBlock`). The module's default export is the component, and its prop is named after the fragment suffix (`TextBlock_block` → `block`).
+- Server 3D modules must be listed in `server3d/registry.ts`, including their `$normalization.graphql` artifact.
+- This branch pins Relay to the nightly `0.0.0-main-b9e1c520`: relay-compiler 21.0.1 generates broken non-Haste `@module` import paths.

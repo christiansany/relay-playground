@@ -13,7 +13,8 @@ function RootComponent() {
       <header style={{ marginBottom: "1.5rem" }}>
         <Link to="/" style={{ fontWeight: 600, fontSize: "1.1rem", textDecoration: "none" }}>
           Relay Playground
-        </Link>
+        </Link>{" "}
+        · <Link to="/three-d">3D lab</Link>
       </header>
       <ErrorBoundary fallback={<p>Something went wrong.</p>}>
         <Suspense fallback={<p>Loading…</p>}>

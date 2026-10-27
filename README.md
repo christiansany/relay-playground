@@ -34,6 +34,10 @@ yarn relay         # one-shot
 yarn relay:watch   # watch
 ```
 
+## Data-Driven Dependencies (3D) lab
+
+`/three-d` in the client is a CSR lab for `@module` / `@match`. `yarn workspace client ssr` starts the SSR/hydration harness on :5174. Read [`docs/data-driven-dependencies.md`](docs/data-driven-dependencies.md) first.
+
 ## Schema
 
 `server/schema.graphql` is the single source of truth. The Relay compiler in `client/` reads it via the relative path in `client/relay.config.json`.

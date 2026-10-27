@@ -1,0 +1,42 @@
+{
+  "data": {
+    "productPage": {
+      "title": "Silence 900 Noise-Cancelling Headphones",
+      "blocks": [
+        {
+          "__typename": "TextBlock",
+          "heading": "Hear nothing but your music",
+          "body": "Adaptive noise cancelling with 40 hours of battery life.",
+          "__module_operation_Server3DDemoQuery": "Server3DTextBlock_block$normalization.graphql",
+          "__module_component_Server3DDemoQuery": "Server3DTextBlock",
+          "id": "blk_10"
+        },
+        {
+          "__typename": "VideoBlock",
+          "title": "Unboxing",
+          "videoUrl": "https://example.com/unboxing.mp4",
+          "__module_operation_Server3DDemoQuery": "Server3DVideoBlock_block$normalization.graphql",
+          "__module_component_Server3DDemoQuery": "Server3DVideoBlock",
+          "id": "blk_11"
+        },
+        {
+          "__typename": "CarouselBlock",
+          "id": "blk_12"
+        },
+        {
+          "__typename": "ComparisonBlock",
+          "id": "blk_15"
+        }
+      ],
+      "id": "pp_headphones"
+    }
+  },
+  "extensions": {
+    "jsModules": [
+      "Server3DTextBlock_block$normalization.graphql",
+      "Server3DTextBlock",
+      "Server3DVideoBlock_block$normalization.graphql",
+      "Server3DVideoBlock"
+    ]
+  }
+}
