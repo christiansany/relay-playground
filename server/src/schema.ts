@@ -4,11 +4,12 @@ import { fileURLToPath } from "node:url";
 import { makeExecutableSchema } from "@graphql-tools/schema";
 import { applySimulateErrorDirective } from "./directives/simulateError.js";
 import { resolvers } from "./resolvers.js";
+import { threeDResolvers } from "./threeD.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const typeDefs = readFileSync(resolve(__dirname, "../schema.graphql"), "utf-8");
 
-const baseSchema = makeExecutableSchema({ typeDefs, resolvers });
+const baseSchema = makeExecutableSchema({ typeDefs, resolvers: [resolvers, threeDResolvers] });
 
 export const schema = applySimulateErrorDirective(baseSchema);

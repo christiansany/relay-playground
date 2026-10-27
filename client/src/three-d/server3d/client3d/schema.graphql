@@ -1,0 +1,16 @@
+# Client schema extension for the "Client 3D" demo: the concrete type is
+# decided on the client (client data + Relay Resolver models), not by the
+# server. Every type implementing IPromoBadge must be a @relayType model,
+# otherwise the compiler won't generate client-side module providers.
+interface IPromoBadge {
+  id: ID!
+}
+
+type PromoSlot {
+  id: ID!
+  badge: IPromoBadge
+}
+
+extend type Query {
+  promoSlot: PromoSlot
+}

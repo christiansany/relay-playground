@@ -1,11 +1,13 @@
 import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
 import { schema } from "./schema.js";
+import { createThreeDContext, threeDPlugin, type ThreeDContext } from "./threeD.js";
 
-const server = new ApolloServer({ schema });
+const server = new ApolloServer<ThreeDContext>({ schema, plugins: [threeDPlugin] });
 
 const { url } = await startStandaloneServer(server, {
-  listen: { port: 4000 },
+  listen: { port: Number(process.env.PORT ?? 4000) },
+  context: async ({ req }) => createThreeDContext(req.headers),
 });
 
 console.log(`🚀 GraphQL server ready at ${url}`);

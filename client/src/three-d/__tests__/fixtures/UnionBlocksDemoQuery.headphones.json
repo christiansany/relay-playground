@@ -1,0 +1,50 @@
+{
+  "data": {
+    "productPage": {
+      "title": "Silence 900 Noise-Cancelling Headphones",
+      "blocks": [
+        {
+          "__typename": "TextBlock",
+          "heading": "Hear nothing but your music",
+          "body": "Adaptive noise cancelling with 40 hours of battery life.",
+          "id": "blk_10"
+        },
+        {
+          "__typename": "VideoBlock",
+          "title": "Unboxing",
+          "videoUrl": "https://example.com/unboxing.mp4",
+          "durationSeconds": 184,
+          "id": "blk_11"
+        },
+        {
+          "__typename": "CarouselBlock",
+          "title": "In the box",
+          "items": [
+            {
+              "__typename": "TextBlock",
+              "heading": "Travel case",
+              "body": "Hard shell, fits in any backpack.",
+              "id": "blk_13"
+            },
+            {
+              "__typename": "ImageGalleryBlock",
+              "images": [
+                {
+                  "url": "https://picsum.photos/seed/case/240/160",
+                  "alt": "Case"
+                }
+              ],
+              "id": "blk_14"
+            }
+          ],
+          "id": "blk_12"
+        },
+        {
+          "__typename": "ComparisonBlock",
+          "id": "blk_15"
+        }
+      ],
+      "id": "pp_headphones"
+    }
+  }
+}

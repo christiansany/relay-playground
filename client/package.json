@@ -7,7 +7,9 @@
     "build": "yarn relay && tsc -b && vite build",
     "preview": "vite preview",
     "relay": "relay-compiler",
-    "typecheck": "tsc -b --noEmit"
+    "typecheck": "tsc -b --noEmit",
+    "ssr": "node ssr/server.mjs",
+    "test": "vitest run"
   },
   "dependencies": {
     "@tanstack/react-router": "1.169.2",
@@ -15,20 +17,22 @@
     "@tanstack/router-core": "1.169.2",
     "react": "19.2.6",
     "react-dom": "19.2.6",
-    "react-relay": "21.0.1",
-    "relay-runtime": "21.0.1"
+    "react-relay": "0.0.0-main-b9e1c520",
+    "relay-runtime": "0.0.0-main-b9e1c520"
   },
   "devDependencies": {
     "@tanstack/router-plugin": "1.167.35",
+    "@types/node": "24.12.4",
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
     "@types/react-relay": "18.2.1",
     "@types/relay-runtime": "20.1.1",
     "@vitejs/plugin-react": "5.2.0",
-    "babel-plugin-relay": "21.0.1",
+    "babel-plugin-relay": "0.0.0-main-b9e1c520",
     "graphql": "16.14.0",
-    "relay-compiler": "21.0.1",
+    "relay-compiler": "0.0.0-main-b9e1c520",
     "typescript": "6.0.3",
-    "vite": "8.0.13"
+    "vite": "8.0.13",
+    "vitest": "5.0.5"
   }
 }
