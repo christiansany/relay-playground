@@ -1,9 +1,14 @@
-import { connectionFromArray } from "graphql-relay";
+import { GraphQLError } from "graphql";
+import { connectionFromArray, cursorForObjectInConnection } from "graphql-relay";
 import {
+  nextCreatedProductId,
+  orderedSectors,
   products,
   productTypes,
   sectorProductTypeLinks,
+  resetMockData,
   sectors,
+  setSectorOrder,
   type ProductRecord,
   type ProductTypeRecord,
   type SectorRecord,
@@ -36,6 +41,13 @@ function sectorsForProductType(productTypeId: string): SectorRecord[] {
   return sectors.filter((s) => linked.has(s.id));
 }
 
+function findProductOrThrow(globalId: string): ProductRecord {
+  const { type, id } = fromGlobalId(globalId);
+  const product = type === "Product" ? products.find((p) => p.id === id) : undefined;
+  if (!product) throw new GraphQLError(`Unknown Product ${globalId}`);
+  return product;
+}
+
 export const resolvers = {
   Node: {
     __resolveType: (obj: { __typename: string }) => obj.__typename,
@@ -59,7 +71,54 @@ export const resolvers = {
 
     productTypes: (_: unknown, args: ConnectionArgs) => connectionFromArray(productTypes, args),
 
-    sectors: (_: unknown, args: ConnectionArgs) => connectionFromArray(sectors, args),
+    sectors: (_: unknown, args: ConnectionArgs) => connectionFromArray(orderedSectors(), args),
+  },
+
+  Mutation: {
+    renameProduct: (_: unknown, { input }: { input: { id: string; name: string } }) => {
+      const product = findProductOrThrow(input.id);
+      product.name = input.name;
+      return { product };
+    },
+
+    createProduct: (
+      _: unknown,
+      { input }: { input: { productTypeId: string; name: string; price: number } },
+    ) => {
+      const { type, id: productTypeId } = fromGlobalId(input.productTypeId);
+      if (type !== "ProductType" || !productTypes.some((pt) => pt.id === productTypeId)) {
+        throw new GraphQLError(`Unknown ProductType ${input.productTypeId}`);
+      }
+      const product: ProductRecord = {
+        __typename: "Product",
+        id: nextCreatedProductId(),
+        name: input.name,
+        description: `Created at ${new Date().toISOString()}`,
+        price: input.price,
+        productTypeId,
+      };
+      products.push(product);
+      const siblings = products.filter((p) => p.productTypeId === productTypeId);
+      return {
+        productEdge: { cursor: cursorForObjectInConnection(siblings, product), node: product },
+      };
+    },
+
+    deleteProduct: (_: unknown, { input }: { input: { id: string } }) => {
+      const product = findProductOrThrow(input.id);
+      products.splice(products.indexOf(product), 1);
+      return { deletedProductId: input.id };
+    },
+
+    labReset: () => {
+      resetMockData();
+      return true;
+    },
+
+    labSetSectorOrder: (_: unknown, { order }: { order: "DEFAULT" | "REVERSED" }) => {
+      setSectorOrder(order);
+      return true;
+    },
   },
 
   Sector: {
