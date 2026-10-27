@@ -6,9 +6,10 @@ import {
   ROOT_TYPE,
   Store,
   type FetchFunction,
+  type MissingFieldHandler,
 } from "relay-runtime";
 
-const GRAPHQL_ENDPOINT = "http://localhost:4000/graphql";
+export const GRAPHQL_ENDPOINT = "http://localhost:4000/graphql";
 
 const fetchFn: FetchFunction = (request, variables) =>
   Observable.create((sink) => {
@@ -32,23 +33,26 @@ const fetchFn: FetchFunction = (request, variables) =>
     return () => controller.abort();
   });
 
+/** Resolves `node(id:)` / `*ById(id:)` from the store without a round trip. */
+export const missingFieldHandlers: MissingFieldHandler[] = [
+  {
+    handle(field, record, argValues) {
+      if (
+        record != null &&
+        record.getType() === ROOT_TYPE &&
+        (field.name === "node" || field.name.endsWith("ById")) &&
+        "id" in argValues
+      ) {
+        return argValues.id;
+      }
+      return undefined;
+    },
+    kind: "linked",
+  },
+];
+
 export const RelayEnvironment = new Environment({
   network: Network.create(fetchFn),
   store: new Store(new RecordSource()),
-  missingFieldHandlers: [
-    {
-      handle(field, record, argValues) {
-        if (
-          record != null &&
-          record.getType() === ROOT_TYPE &&
-          (field.name === "node" || field.name.endsWith("ById")) &&
-          "id" in argValues
-        ) {
-          return argValues.id;
-        }
-        return undefined;
-      },
-      kind: "linked",
-    },
-  ],
+  missingFieldHandlers,
 });

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<572cf966aab9e8a58908e1b6359b854f>>
+ * @generated SignedSource<<3e80dd826aaf29615565d3e5a4947c52>>
  * @lightSyntaxTransform
  */
 
@@ -18,6 +18,7 @@ export type idErrorMutationsDeleteMutation$variables = {
 };
 export type idErrorMutationsDeleteMutation$data = {
   readonly deleteProduct: {
+    readonly deletedId: string;
     readonly deletedProductId: string;
   } | null;
 };
@@ -55,6 +56,13 @@ v4 = {
   "kind": "ScalarField",
   "name": "deletedProductId",
   "storageKey": null
+},
+v5 = {
+  "alias": "deletedId",
+  "args": null,
+  "kind": "ScalarField",
+  "name": "deletedProductId",
+  "storageKey": null
 };
 return {
   "fragment": {
@@ -75,7 +83,8 @@ return {
         "name": "deleteProduct",
         "plural": false,
         "selections": [
-          (v4/*:: as any*/)
+          (v4/*:: as any*/),
+          (v5/*:: as any*/)
         ],
         "storageKey": null
       }
@@ -106,6 +115,23 @@ return {
             "alias": null,
             "args": null,
             "filters": null,
+            "handle": "deleteEdge",
+            "key": "",
+            "kind": "ScalarHandle",
+            "name": "deletedProductId",
+            "handleArgs": [
+              {
+                "kind": "Variable",
+                "name": "connections",
+                "variableName": "connections"
+              }
+            ]
+          },
+          (v5/*:: as any*/),
+          {
+            "alias": "deletedId",
+            "args": null,
+            "filters": null,
             "handle": "deleteRecord",
             "key": "",
             "kind": "ScalarHandle",
@@ -117,16 +143,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "296c8888e657a9e2f370c81c4a386b3b",
+    "cacheID": "c97a004341d5ff2a2d0b9f9858a63f1f",
     "id": null,
     "metadata": {},
     "name": "idErrorMutationsDeleteMutation",
     "operationKind": "mutation",
-    "text": "mutation idErrorMutationsDeleteMutation(\n  $input: DeleteProductInput!\n  $err: Boolean!\n) {\n  deleteProduct(input: $input) {\n    deletedProductId @simulateError(if: $err)\n  }\n}\n"
+    "text": "mutation idErrorMutationsDeleteMutation(\n  $input: DeleteProductInput!\n  $err: Boolean!\n) {\n  deleteProduct(input: $input) {\n    deletedProductId @simulateError(if: $err)\n    deletedId: deletedProductId @simulateError(if: $err)\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "e7565eabef39a0fb3d468970f2350d0f";
+(node as any).hash = "c3c5db3ecce8175ff65b2b1464395fba";
 
 export default node;

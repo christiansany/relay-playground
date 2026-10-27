@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b962b76d19da22749c83646153b731fd>>
+ * @generated SignedSource<<4ac198a3fa84365eecd5469167716d77>>
  * @lightSyntaxTransform
  */
 
@@ -11,7 +11,7 @@ import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type idErrorHooks_productType$data = {
   readonly id: string;
-  readonly name: string;
+  readonly name: string | null;
   readonly " $fragmentType": "idErrorHooks_productType";
 };
 export type idErrorHooks_productType$key = {
@@ -35,8 +35,7 @@ const node: ReaderFragment = {
         "identifierField": "id",
         "identifierQueryVariableName": "id"
       }
-    },
-    "throwOnFieldError": true
+    }
   },
   "name": "idErrorHooks_productType",
   "selections": [
@@ -59,6 +58,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "88cdc5809b8d16d71e8f3f98525ecfdf";
+(node as any).hash = "7c856e305a218012be6f3446f7b8df31";
 
 export default node;

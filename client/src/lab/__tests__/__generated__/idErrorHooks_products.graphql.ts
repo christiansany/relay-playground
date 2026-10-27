@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<8325905a017ff675c0899d15f256b455>>
+ * @generated SignedSource<<b0ffeb2716be098e1f63ed06af536a79>>
  * @lightSyntaxTransform
  */
 
@@ -15,10 +15,10 @@ export type idErrorHooks_products$data = {
     readonly edges: ReadonlyArray<{
       readonly node: {
         readonly id: string;
-        readonly name: string;
-      };
-    }>;
-  };
+        readonly name: string | null;
+      } | null;
+    } | null> | null;
+  } | null;
   readonly " $fragmentType": "idErrorHooks_products";
 };
 export type idErrorHooks_products$key = {
@@ -79,8 +79,7 @@ return {
         "identifierField": "id",
         "identifierQueryVariableName": "id"
       }
-    },
-    "throwOnFieldError": true
+    }
   },
   "name": "idErrorHooks_products",
   "selections": [
@@ -171,6 +170,6 @@ return {
 };
 })();
 
-(node as any).hash = "47af9b5f59ce972cd20e69c578f7dbff";
+(node as any).hash = "1203339d2365112af911cf7e3864ee54";
 
 export default node;
